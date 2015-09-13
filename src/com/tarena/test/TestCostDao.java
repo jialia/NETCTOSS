@@ -3,6 +3,7 @@ package com.tarena.test;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -78,7 +79,7 @@ public class TestCostDao {
 		System.out.println(dao.findRows());
 	}
 	
-//	@Test
+	@Test
 	public void testFindSort() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		CostDao dao = context.getBean(CostDao.class);
