@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.tarena.dao.CostDao">
+
+	<!-- 查询全部的资费 -->
+	<select id="findAll" resultType="com.tarena.entity.Cost" >
+		SELECT * FROM cost ORDER BY cost_id
+	</select>
+	
+	<!-- 插入一条资费数据 -->
+	<insert id="save" parameterType="com.tarena.entity.Cost">
+		INSERT INTO cost VALUES(
+			cost_seq.nextval , #{name,jdbcType=VARCHAR} , 
+			#{base_duration,jdbcType=NUMERIC} ,  #{base_cost,jdbcType=NUMERIC} , 
+			#{unit_cost,jdbcType=NUMERIC} , #{status,jdbcType=VARCHAR} , 
+			#{descr,jdbcType=VARCHAR} , #{creatime,jdbcType=TIMESTAMP} , 
+			#{startime,jdbcType=TIMESTAMP} , #{cost_type,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="findById" parameterType="java.lang.Integer" 
+			resultType="com.tarena.entity.Cost" >
+		SELECT * FROM cost WHERE cost_id = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.tarena.entity.Cost">
+		UPDATE cost SET  name=#{name,jdbcType=VARCHAR} , base_duration=#{base_duration,jdbcType=NUMERIC} , 
+			base_cost=#{base_cost,jdbcType=NUMERIC} ,	unit_cost=#{unit_cost,jdbcType=NUMERIC} ,
+			descr = #{descr,jdbcType=VARCHAR} , cost_type=#{cost_type,jdbcType=VARCHAR}
+		WHERE cost_id = ${cost_id} 
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from cost where cost_id = #{id}
+	</delete>
+	
+	<select id="findByPage" parameterType="com.tarena.entity.page.CostPage" 
+		 resultType="com.tarena.entity.Cost" >
+	<![CDATA[
+		SELECT * FROM ( SELECT c.* , rownum r FROM (
+			SELECT * FROM cost ORDER BY cost_id ) c
+			) WHERE r < #{end} AND r >#{begin} 
+	]]>
+	</select>
+	
+	<select id="findRows" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM cost
+	</select>
+
+</mapper>
