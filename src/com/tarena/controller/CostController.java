@@ -1,5 +1,6 @@
 package com.tarena.controller;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,7 +23,9 @@ import com.tarena.entity.page.CostPage;
  */
 @Controller
 @RequestMapping("/cost")
-public class CostController {
+public class CostController implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Resource
 	private CostDao dao;
@@ -37,7 +40,8 @@ public class CostController {
 	@RequestMapping("/findCost.do")
 	public String find(Model model , CostPage page) {
 		//查询某一页的数据
-		List<Cost> list =  dao.findByPage(page);
+		List<Cost> list =  dao.findBySort(page);
+//		List<Cost> list =  dao.findByPage(page);
 		model.addAttribute("costs", list);
 		//计算总行数
 		page.setRows(dao.findRows());

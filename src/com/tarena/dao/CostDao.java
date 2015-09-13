@@ -25,7 +25,9 @@ public interface CostDao {
 	
 	public void delete(int id);
 	
-	public List<Cost> findByPage(CostPage page) ;
+	public List<Cost> findByPage(CostPage page);
+	
+	public List<Cost> findBySort(CostPage page);
 	
 	public int findRows();
 

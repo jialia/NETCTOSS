@@ -10,11 +10,29 @@
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             //排序按钮的点击事件
-            function sort(btnObj) {
-                if (btnObj.className == "sort_desc")
-                    btnObj.className = "sort_asc";
-                else
-                    btnObj.className = "sort_desc";
+            function sortBaseDuration(btnObj) {
+                <c:choose>
+                	<c:when test="${costPage.baseDuration}">
+                    	btnObj.className = "sort_desc";
+                    	window.location.href = "findCost.do?baseDuration=false";
+					</c:when>
+                	<c:otherwise>
+                    	btnObj.className = "sort_asc";
+                    	window.location.href = "findCost.do?baseDuration=true";
+                	</c:otherwise>
+                </c:choose>
+            }
+            function sortBaseCost(btnObj) {
+                <c:choose>
+                	<c:when test="${costPage.baseCost}">
+                    	btnObj.className = "sort_desc";
+                    	window.location.href = "findCost.do?baseCost=false";
+					</c:when>
+                	<c:otherwise>
+                    	btnObj.className = "sort_asc";
+	                    window.location.href = "findCost.do?baseCost=true";
+                	</c:otherwise>
+                </c:choose>
             }
 
             //启用
@@ -57,13 +75,22 @@
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">
-            <form action="" method="">
                 <!--排序-->
                 <div class="search_add">
                     <div>
                         <!--<input type="button" value="月租" class="sort_asc" onclick="sort(this);" />-->
-                        <input type="button" value="基费" class="sort_asc" onclick="sort(this);" />
-                        <input type="button" value="时长" class="sort_asc" onclick="sort(this);" />
+                        <input type="button" value="时长"
+                        <c:choose>
+                        	<c:when test="${costPage.baseDuration}">class="sort_asc"</c:when>
+                        	<c:otherwise>class="sort_desc"</c:otherwise>
+                        </c:choose>
+						onclick="sortBaseDuration(this);" />
+                        <input type="button" value="基费" 
+                        <c:choose>
+                        	<c:when test="${costPage.baseCost}">class="sort_asc"</c:when>
+                        	<c:otherwise>class="sort_desc"</c:otherwise>
+                        </c:choose>
+                          onclick="sortBaseCost(this);" />
                     </div>
                     <input type="button" value="增加" class="btn_add" onclick="location.href='toAddCost.do';" />
                 </div> 
@@ -131,16 +158,16 @@
 		        	        <a href="javascript:;" >上一页</a>
                 		</c:when>
                 		<c:otherwise>
-		        	        <a href="findCost.do?currentPage=${costPage.currentPage-1}">上一页</a>
+		        	        <a href="findCost.do?baseDuration=${costPage.baseDuration}&baseCost=${costPage.baseCost}&currentPage=${costPage.currentPage-1}">上一页</a>
                 		</c:otherwise>
                 	</c:choose>
         	        <c:forEach begin="1" end="${costPage.totalPage}" var="p" >
         	        <c:choose>
         	        	<c:when test="${p == costPage.currentPage}">
-		                    <a href="findCost.do?currentPage=${p}"  class="current_page">${p}</a>
+		                    <a href="findCost.do?baseDuration=${costPage.baseDuration}&baseCost=${costPage.baseCost}&currentPage=${p}"  class="current_page">${p}</a>
         	        	</c:when>
         	        	<c:otherwise>
-		                    <a href="findCost.do?currentPage=${p}" >${p}</a>
+		                    <a href="findCost.do?findCost.do?baseDuration=${costPage.baseDuration}&baseCost=${costPage.baseCost}&currentPage=${p}" >${p}</a>
         	        	</c:otherwise>
         	        </c:choose>
         	        </c:forEach>
@@ -149,11 +176,10 @@
                     		<a href="javascript:;" >下一页</a>
                 		</c:when>
                 		<c:otherwise>
-		                    <a href="findCost.do?currentPage=${costPage.currentPage+1}">下一页</a>
+		                    <a href="findCost.do?baseDuration=${costPage.baseDuration}&baseCost=${costPage.baseCost}&currentPage=${costPage.currentPage+1}">下一页</a>
                 		</c:otherwise>
                 	</c:choose>
                 </div>
-            </form>
         </div>
         <!--主要区域结束-->
         <div id="footer">

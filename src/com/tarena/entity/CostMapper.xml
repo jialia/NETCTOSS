@@ -47,5 +47,30 @@
 	<select id="findRows" resultType="java.lang.Integer" >
 		SELECT COUNT(*) FROM cost
 	</select>
+	
+	<select id="findBySort" parameterType="com.tarena.entity.page.CostPage" 
+		 resultType="com.tarena.entity.Cost" >
+		SELECT * FROM ( SELECT c.* , rownum r FROM (
+			SELECT * FROM cost
+			<trim prefix="ORDER BY" suffixOverrides=",">
+				<choose>
+					<when test="baseDuration == true">
+						base_duration ASC , 
+					</when>
+					<when test="baseDuration == false">
+						base_duration DESC ,
+					</when>
+				</choose>
+				<choose>
+					<when test="baseCost == true">
+						base_cost ASC , 
+					</when>
+					<when test="baseCost == false">
+						base_cost DESC ,
+					</when>
+				</choose>
+			</trim>
+			) c ) WHERE r &lt; #{end} AND r &gt; #{begin} 
+	</select>
 
 </mapper>

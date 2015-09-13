@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.tarena.dao.AccountDao">
+
+	<select id="findByPage" parameterType="com.tarena.entity.page.AccountPage"
+			resultType="com.tarena.entity.Account" >
+			SELECT * FROM (
+				SELECT  a.* , ROWNUM r  FROM(
+				SELECT  *  FROM  account
+				<where>
+					<if test="idcard_no != null &amp;&amp; idcard_no.length()>0">
+						AND idcard_no = #{idcard_no,jdbcType=VARCHAR}
+					</if>
+					<if test="real_name != null &amp;&amp; real_name.length()>0">
+						AND real_name = #{real_name,jdbcType=VARCHAR}
+					</if>
+					<if test="login_name != null &amp;&amp; login_name.length()>0">
+						AND login_name = #{login_name,jdbcType=VARCHAR}
+					</if>
+					<if test="status != null &amp;&amp; status.length()>0">
+						AND status = #{status,jdbcType=VARCHAR}
+					</if>
+				</where>
+				ORDER BY account_id
+				) a
+			) WHERE r &lt; #{end} AND r &gt; #{begin}
+	</select>
+	
+	<select id="findRows" parameterType="com.tarena.entity.page.AccountPage"
+		 	resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM account
+		<where>
+			<if test="idcard_no != null &amp;&amp; idcard_no.length()>0">
+				AND idcard_no = #{idcard_no,jdbcType=VARCHAR}
+			</if>
+			<if test="real_name != null &amp;&amp; real_name.length()>0">
+				AND real_name = #{real_name,jdbcType=VARCHAR}
+			</if>
+			<if test="login_name != null &amp;&amp; login_name.length()>0">
+				AND login_name = #{login_name,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null &amp;&amp; status.length()>0">
+				AND status = #{status,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

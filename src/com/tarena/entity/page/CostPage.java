@@ -1,93 +1,55 @@
 package com.tarena.entity.page;
 
+import java.io.Serializable;
+
 
 /**
  * 资费模块的分页条件
  * 
  * @author Jsong
  */
-public class CostPage {
+public class CostPage extends Page  implements Serializable{
 	
-	private int currentPage = 1;	//当前页
+	private static final long serialVersionUID = 1L;
+
+	//基本时长排序条件，ture为增序，false为降序
+	private Boolean baseDuration;
 	
-	private int pageSize = 5;		//每页最大行
-	
-	//用于实现分页SQL的条件，是根据用户输入的条件计算而来
-	private int begin;
-	
-	private int end;
-	
-	//自动计算出的总行数
-	private int rows;
-	
-	//总页数
-	private int totalPage;
+	private Boolean baseCost;	//基本费用排序条件
 	
 	public CostPage() {
 	}
 
 	public CostPage(int currentPage, int pageSize) {
-		this.currentPage = currentPage;
-		this.pageSize = pageSize;
+		super(currentPage, pageSize);
 	}
 	
-
-	public int getBegin() {
-		//在mapper.xml使用begin属性时，对其进行计算
-		begin = (currentPage - 1) * pageSize;
-		return begin;
-	}
-
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
-
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	public int getTotalPage() {
-		//根据总行数，计算总页数
-		if (rows%pageSize == 0) {
-			totalPage = rows/pageSize;
-		}else {
-			totalPage = rows/pageSize+1;
-		}
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getEnd() {
-		//在mapper.xml使用end属性时，对其进行计算
-		end = currentPage * pageSize + 1 ;
-		return end;
-	}
-
-	public void setEnd(int end) {
-		this.end = end;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public CostPage(Boolean baseDuration, Boolean baseCost) {
+		this.baseDuration = baseDuration;
+		this.baseCost = baseCost;
 	}
 	
+	public CostPage(int currentPage, int pageSize , Boolean baseDuration, Boolean baseCost) {
+		super(currentPage, pageSize);
+		this.baseDuration = baseDuration;
+		this.baseCost = baseCost;
+	}
+
+	
+	public Boolean getBaseDuration() {
+		return baseDuration;
+	}
+
+	public void setBaseDuration(Boolean baseDuration) {
+		this.baseDuration = baseDuration;
+	}
+
+	public Boolean getBaseCost() {
+		return baseCost;
+	}
+
+	public void setBaseCost(Boolean baseCost) {
+		this.baseCost = baseCost;
+	}
+
 }

@@ -12,6 +12,8 @@ import java.sql.Timestamp;
  */
 public class Cost implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer cost_id;
 	private String name;
 	private Integer base_duration;
