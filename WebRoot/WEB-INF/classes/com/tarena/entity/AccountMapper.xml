@@ -19,7 +19,7 @@
 					<if test="login_name != null &amp;&amp; login_name.length()>0">
 						AND login_name = #{login_name,jdbcType=VARCHAR}
 					</if>
-					<if test="status != null &amp;&amp; status.length()>0">
+					<if test="status != null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1') ">
 						AND status = #{status,jdbcType=VARCHAR}
 					</if>
 				</where>
@@ -41,7 +41,7 @@
 			<if test="login_name != null &amp;&amp; login_name.length()>0">
 				AND login_name = #{login_name,jdbcType=VARCHAR}
 			</if>
-			<if test="status != null &amp;&amp; status.length()>0">
+			<if test="status != null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1')  ">
 				AND status = #{status,jdbcType=VARCHAR}
 			</if>
 		</where>
