@@ -9,16 +9,28 @@
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
         <script language="javascript" type="text/javascript">
-            //删除
-            function deleteAccount() {
-                var r = window.confirm("确定要删除此账务账号吗？\r\n删除后将不能恢复，且会删除其下属的所有业务账号。");
-                document.getElementById("operate_result_info").style.display = "block";
+        	// 开通
+        	function start_account(id){
+            	var r = window.confirm("确定要开通此账务账号吗？");
+            	if(r){
+            		window.location.href="startAccount.do?id="+id;
+            	}
+        	}
+            // 暂停
+            function pause_account(id){
+                var r = window.confirm("确定要暂停此账务账号吗？");
+                if(r){
+                	window.location.href="pauseAccount.do?id="+id;
+                }
             }
-            //开通或暂停
-            function setState() {
-                var r = window.confirm("确定要开通此账务账号吗？");
-                document.getElementById("operate_result_info").style.display = "block";
+            // 删除
+            function delete_account(id){
+                var r = window.confirm("确定删除此账务账号吗？");
+                if(r){
+                	window.location.href="deleteAccount.do?id="+id;
+                }
             }
+            
             function to_page(curr_page){
             	//将传入的页码赋值给表单中的页码文本框
             	document.getElementById("current_page").value = curr_page ;
@@ -109,9 +121,23 @@
                         <td><fmt:formatDate value="${acc.create_date}" pattern="yyyy-MM-dd" /></td>
                         <td><fmt:formatDate value="${acc.last_login_time}" pattern="yyyy-MM-dd" /></td>                            
                         <td class="td_modi">
-                            <input type="button" value="暂停" class="btn_pause" onclick="setState();" />
-                            <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
-                            <input type="button" value="删除" class="btn_delete" onclick="deleteAccount();" />
+                        	<c:choose>
+                        		<c:when test="${acc.status == 0}">
+		                            <input type="button" value="暂停" class="btn_pause" onclick="pause_account(${acc.account_id});" />
+        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
+                		            <input type="button" value="删除" class="btn_delete" onclick="alert('此账号没有暂停，请先暂停此账号');" />
+								</c:when>
+                        		<c:when test="${acc.status == 1}">
+		                            <input type="button" value="开通" class="btn_start" onclick="start_account(${acc.account_id});" />
+        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
+                		            <input type="button" value="删除" class="btn_delete" onclick="delete_account(${acc.account_id});" />
+								</c:when>
+                        		<c:otherwise>
+                		            <input type="button" value="开通" class="btn_start" onclick="start_account(${acc.account_id});" />
+        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
+		                            <input type="button" value="暂停" class="btn_pause" onclick="pause_account(${acc.account_id});"/>
+                        		</c:otherwise>
+                        	</c:choose>
                         </td>
                     </tr>
                     </c:forEach>

@@ -27,7 +27,7 @@ public class TestAccountDao {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testFindRows() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AccountDao dao = context.getBean(AccountDao.class);
@@ -36,5 +36,27 @@ public class TestAccountDao {
 		int rows = dao.findRows(page);
 		System.out.println(rows);
 	}
+	
+//	@Test
+	public void testPause(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		dao.pause(1005);
+	}
+	
+//	@Test
+	public void testStart(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		dao.start(1005);
+	}
+	
+	@Test
+	public void testDelete(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		dao.delete(1005);
+	}
+	
 
 }

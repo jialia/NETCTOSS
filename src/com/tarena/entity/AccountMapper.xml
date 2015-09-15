@@ -4,6 +4,7 @@
 
 <mapper namespace="com.tarena.dao.AccountDao">
 
+	<!-- 有条件的分页查找 -->
 	<select id="findByPage" parameterType="com.tarena.entity.page.AccountPage"
 			resultType="com.tarena.entity.Account" >
 			SELECT * FROM (
@@ -28,6 +29,7 @@
 			) WHERE r &lt; #{end} AND r &gt; #{begin}
 	</select>
 	
+	<!-- 查询总行数（有条件） -->
 	<select id="findRows" parameterType="com.tarena.entity.page.AccountPage"
 		 	resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM account
@@ -46,5 +48,20 @@
 			</if>
 		</where>
 	</select>
+	
+	<!-- 开通业务 -->
+	<update id="start" parameterType="java.lang.Integer">
+		UPDATE account SET status = '0' , pause_date=null WHERE account_id = #{id}
+	</update>
+	
+	<!-- 暂停账务账号 -->
+	<update id="pause" parameterType="java.lang.Integer">
+		UPDATE account SET status = '1' , pause_date=SYSDATE WHERE account_id = #{id}
+	</update>
+	
+	<!-- 删除业务 -->
+	<update id="delete" parameterType="java.lang.Integer">
+		UPDATE account SET status = '2' , close_date=SYSDATE WHERE account_id = #{id}
+	</update>
 	
 </mapper>

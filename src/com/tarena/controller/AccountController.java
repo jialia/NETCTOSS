@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tarena.dao.AccountDao;
 import com.tarena.entity.Account;
@@ -29,6 +30,33 @@ public class AccountController {
 		page.setRows(accDao.findRows(page));
 		model.addAttribute("accountPage", page);
 		return "account/account_list";
+	}
+	
+	@RequestMapping("startAccount.do")
+	public String updateStart(@RequestParam("id")int id){
+		//暂停账务账号
+		accDao.start(id);
+		return "redirect:findAccount.do";
+	}
+	
+	@RequestMapping("pauseAccount.do")
+	public String updatePause(@RequestParam("id")int id){
+		//暂停账务账号
+		accDao.pause(id);
+		
+		// TODO 暂停账务账号时，要暂停它下属的业务账号
+		
+		return "redirect:findAccount.do";
+	}
+	
+	@RequestMapping("deleteAccount.do")
+	public String updateDelete(@RequestParam("id")int id){
+		//暂停账务账号
+		accDao.delete(id);
+		
+		// TODO 删除账务账号时，要删除它下属的业务账号
+		
+		return "redirect:findAccount.do";
 	}
 
 }

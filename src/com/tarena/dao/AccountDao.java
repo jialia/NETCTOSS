@@ -9,8 +9,35 @@ import com.tarena.entity.page.AccountPage;
 @MyBatisRepository
 public interface AccountDao {
 	
+	/**
+	 * 分页查找
+	 * @param page
+	 * @return
+	 */
 	public List<Account> findByPage(AccountPage page);
 	
+	/**
+	 * 查找总行数
+	 * @param page
+	 * @return
+	 */
 	public int findRows(AccountPage page) ;
+	
+	/**
+	 * 开通业务
+	 * @param id
+	 */
+	public void start(int id);
+	
+	/**
+	 * 暂停账务账号，将状态该为1，将暂停时间改为当前系统时间
+	 * @param id
+	 */
+	public void pause(int id);
 
+	/**
+	 * 删除业务
+	 * @param id
+	 */
+	public void delete(int id);
 }
