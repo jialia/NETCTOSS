@@ -1,4 +1,4 @@
-package com.tarena.dao;
+锘縫ackage com.tarena.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.tarena.entity.Cost;
 import com.tarena.entity.page.CostPage;
 
 /**
- * Cost（资费表）数据持久层接口
+ * Cost锛堣祫璐硅〃锛夋暟鎹寔涔呭眰鎺ュ彛
  * 
  * @author Jsong
  *

@@ -1,4 +1,4 @@
-package com.tarena.entity;
+ï»¿package com.tarena.entity;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 
 /**
- * ×Ê·ÑÊµÌåÀà
+ * èµ„è´¹å®ä½“ç±»
  * 
  * @author Jsong
  */

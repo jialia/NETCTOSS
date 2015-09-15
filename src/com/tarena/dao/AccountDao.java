@@ -1,4 +1,4 @@
-package com.tarena.dao;
+ï»¿package com.tarena.dao;
 
 import java.util.List;
 
@@ -10,33 +10,33 @@ import com.tarena.entity.page.AccountPage;
 public interface AccountDao {
 	
 	/**
-	 * ·ÖÒ³²éÕÒ
+	 * åˆ†é¡µæŸ¥æ‰¾
 	 * @param page
 	 * @return
 	 */
 	public List<Account> findByPage(AccountPage page);
 	
 	/**
-	 * ²éÕÒ×ÜĞĞÊı
+	 * æŸ¥æ‰¾æ€»è¡Œæ•°
 	 * @param page
 	 * @return
 	 */
 	public int findRows(AccountPage page) ;
 	
 	/**
-	 * ¿ªÍ¨ÒµÎñ
+	 * å¼€é€šä¸šåŠ¡
 	 * @param id
 	 */
 	public void start(int id);
 	
 	/**
-	 * ÔİÍ£ÕËÎñÕËºÅ£¬½«×´Ì¬¸ÃÎª1£¬½«ÔİÍ£Ê±¼ä¸ÄÎªµ±Ç°ÏµÍ³Ê±¼ä
+	 * æš‚åœè´¦åŠ¡è´¦å·ï¼Œå°†çŠ¶æ€è¯¥ä¸º1ï¼Œå°†æš‚åœæ—¶é—´æ”¹ä¸ºå½“å‰ç³»ç»Ÿæ—¶é—´
 	 * @param id
 	 */
 	public void pause(int id);
 
 	/**
-	 * É¾³ıÒµÎñ
+	 * åˆ é™¤ä¸šåŠ¡
 	 * @param id
 	 */
 	public void delete(int id);

@@ -1,10 +1,10 @@
-package com.tarena.entity.page;
+ï»¿package com.tarena.entity.page;
 
 import java.io.Serializable;
 
 
 /**
- * ×Ê·ÑÄ£¿éµÄ·ÖÒ³Ìõ¼ş
+ * èµ„è´¹æ¨¡å—çš„åˆ†é¡µæ¡ä»¶
  * 
  * @author Jsong
  */
@@ -12,10 +12,10 @@ public class CostPage extends Page  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	//»ù±¾Ê±³¤ÅÅĞòÌõ¼ş£¬tureÎªÔöĞò£¬falseÎª½µĞò
+	//åŸºæœ¬æ—¶é•¿æ’åºæ¡ä»¶ï¼Œtureä¸ºå¢åºï¼Œfalseä¸ºé™åº
 	private Boolean baseDuration;
 	
-	private Boolean baseCost;	//»ù±¾·ÑÓÃÅÅĞòÌõ¼ş
+	private Boolean baseCost;	//åŸºæœ¬è´¹ç”¨æ’åºæ¡ä»¶
 	
 	public CostPage() {
 	}

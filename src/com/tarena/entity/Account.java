@@ -1,4 +1,4 @@
-package com.tarena.entity;
+﻿package com.tarena.entity;
 
 import java.io.Serializable;
 import java.sql.Date;

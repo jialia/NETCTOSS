@@ -1,9 +1,9 @@
-package com.tarena.entity.page;
+ï»¿package com.tarena.entity.page;
 
 import java.io.Serializable;
 
 /**
- * ·ÖÒ³×é¼şµÄ¸¸Àà£¬ÓÃÀ´·â×°·ÖÒ³µÄÄÚÈİºÍÂß¼­
+ * åˆ†é¡µç»„ä»¶çš„çˆ¶ç±»ï¼Œç”¨æ¥å°è£…åˆ†é¡µçš„å†…å®¹å’Œé€»è¾‘
  * 
  * @author Administrator
  *
@@ -12,19 +12,19 @@ public class Page implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private int currentPage = 1;	//µ±Ç°Ò³
+	private int currentPage = 1;	//å½“å‰é¡µ
 	
-	private int pageSize = 5;		//Ã¿Ò³×î´óĞĞ
+	private int pageSize = 5;		//æ¯é¡µæœ€å¤§è¡Œ
 	
-	//ÓÃÓÚÊµÏÖ·ÖÒ³SQLµÄÌõ¼ş£¬ÊÇ¸ù¾İÓÃ»§ÊäÈëµÄÌõ¼ş¼ÆËã¶øÀ´
+	//ç”¨äºå®ç°åˆ†é¡µSQLçš„æ¡ä»¶ï¼Œæ˜¯æ ¹æ®ç”¨æˆ·è¾“å…¥çš„æ¡ä»¶è®¡ç®—è€Œæ¥
 	private int begin;
 	
 	private int end;
 	
-	//×Ô¶¯¼ÆËã³öµÄ×ÜĞĞÊı
+	//è‡ªåŠ¨è®¡ç®—å‡ºçš„æ€»è¡Œæ•°
 	private int rows;
 	
-	//×ÜÒ³Êı
+	//æ€»é¡µæ•°
 	private int totalPage;
 	
 	public Page() {
@@ -37,7 +37,7 @@ public class Page implements Serializable {
 
 
 	public int getBegin() {
-		//ÔÚmapper.xmlÊ¹ÓÃbeginÊôĞÔÊ±£¬¶ÔÆä½øĞĞ¼ÆËã
+		//åœ¨mapper.xmlä½¿ç”¨beginå±æ€§æ—¶ï¼Œå¯¹å…¶è¿›è¡Œè®¡ç®—
 		begin = (currentPage - 1) * pageSize;
 		return begin;
 	}
@@ -55,7 +55,7 @@ public class Page implements Serializable {
 	}
 
 	public int getTotalPage() {
-		//¸ù¾İ×ÜĞĞÊı£¬¼ÆËã×ÜÒ³Êı
+		//æ ¹æ®æ€»è¡Œæ•°ï¼Œè®¡ç®—æ€»é¡µæ•°
 		if (rows%pageSize == 0) {
 			totalPage = rows/pageSize;
 		}else {
@@ -69,7 +69,7 @@ public class Page implements Serializable {
 	}
 
 	public int getEnd() {
-		//ÔÚmapper.xmlÊ¹ÓÃendÊôĞÔÊ±£¬¶ÔÆä½øĞĞ¼ÆËã
+		//åœ¨mapper.xmlä½¿ç”¨endå±æ€§æ—¶ï¼Œå¯¹å…¶è¿›è¡Œè®¡ç®—
 		end = currentPage * pageSize + 1 ;
 		return end;
 	}

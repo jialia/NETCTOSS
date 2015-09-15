@@ -1,8 +1,8 @@
-package com.tarena.annotation;
+ï»¿package com.tarena.annotation;
 
 
 /**
- * ÓÃÓÚ±êÊ¾Dao£¬Spring»á×Ô¶¯É¨Ãè±êÓĞ¸Ã±êÊ¾µÄDaoÀà
+ * ç”¨äºæ ‡ç¤ºDaoï¼ŒSpringä¼šè‡ªåŠ¨æ‰«ææ ‡æœ‰è¯¥æ ‡ç¤ºçš„Daoç±»
  * 
  * @author Jsong
  *

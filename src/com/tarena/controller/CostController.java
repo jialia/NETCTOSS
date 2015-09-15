@@ -1,4 +1,4 @@
-package com.tarena.controller;
+ï»¿package com.tarena.controller;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -17,7 +17,7 @@ import com.tarena.entity.page.CostPage;
 
 
 /**
- * ×Ê·ÑÄ£¿éµÄÒµÎñ¿ØÖÆÆ÷£¬ÓÃÀ´´¦Àí×Ê·ÑµÄÔöÉ¾¸Ä²éÒµÎñ
+ * èµ„è´¹æ¨¡å—çš„ä¸šåŠ¡æ§åˆ¶å™¨ï¼Œç”¨æ¥å¤„ç†èµ„è´¹çš„å¢åˆ æ”¹æŸ¥ä¸šåŠ¡
  * 
  * @author Jsong
  */
@@ -39,11 +39,11 @@ public class CostController implements Serializable{
 	
 	@RequestMapping("/findCost.do")
 	public String find(Model model , CostPage page) {
-		//²éÑ¯Ä³Ò»Ò³µÄÊı¾İ
+		//æŸ¥è¯¢æŸä¸€é¡µçš„æ•°æ®
 		List<Cost> list =  dao.findBySort(page);
 //		List<Cost> list =  dao.findByPage(page);
 		model.addAttribute("costs", list);
-		//¼ÆËã×ÜĞĞÊı
+		//è®¡ç®—æ€»è¡Œæ•°
 		page.setRows(dao.findRows());
 		model.addAttribute("costPage", page);
 		return "cost/cost_list";
@@ -56,7 +56,7 @@ public class CostController implements Serializable{
 	
 	@RequestMapping("/addCost.do")
 	public String add(Cost cost) {
-		//±£´æÇ°ÉèÖÃÄ¬ÈÏÖµ
+		//ä¿å­˜å‰è®¾ç½®é»˜è®¤å€¼
 		cost.setStatus(0);
 		cost.setCreatime(new Timestamp(System.currentTimeMillis()));
 		dao.save(cost);

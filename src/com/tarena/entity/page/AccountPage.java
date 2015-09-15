@@ -1,11 +1,11 @@
-package com.tarena.entity.page;
+ï»¿package com.tarena.entity.page;
 
 import java.io.Serializable;
 
 
 /**
- *	ÕËÎñÕËºÅµÄ·ÖÒ³×é¼ş£¬ÓÃÓÚ·â×°ÕËÎñ 
- * 	ÕËºÅÄ£¿éµÄ·ÖÒ³Ìõ¼ş¼°ËÑË÷Ìõ¼ş¡£
+ *	è´¦åŠ¡è´¦å·çš„åˆ†é¡µç»„ä»¶ï¼Œç”¨äºå°è£…è´¦åŠ¡ 
+ * 	è´¦å·æ¨¡å—çš„åˆ†é¡µæ¡ä»¶åŠæœç´¢æ¡ä»¶ã€‚
  * 
  * @author Jsong
  */
@@ -13,13 +13,13 @@ public class AccountPage extends Page implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private String idcard_no; 	//Éí·İÖ¤
+	private String idcard_no; 	//èº«ä»½è¯
 	
-	private String real_name;	//ĞÕÃû
+	private String real_name;	//å§“å
 	
-	private String login_name;	//µÇÂ¼Ãû
+	private String login_name;	//ç™»å½•å
 	
-	private String status;		//×´Ì¬
+	private String status;		//çŠ¶æ€
 
 	public String getIdcard_no() {
 		return idcard_no;

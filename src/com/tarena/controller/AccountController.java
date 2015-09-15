@@ -1,4 +1,4 @@
-package com.tarena.controller;
+ï»¿package com.tarena.controller;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ public class AccountController {
 	
 	@RequestMapping("/findAccount.do")
 	public String find(AccountPage page , Model model) {
-		//²éÑ¯³öµ±Ç°Ò³µÄÊı¾İ
+		//æŸ¥è¯¢å‡ºå½“å‰é¡µçš„æ•°æ®
 		List<Account> list = accDao.findByPage(page);
 		model.addAttribute("accounts", list);
 		
-		//²éÑ¯³ö×ÜĞĞÊı£¬´Ó¶ø¼ÆËã³ö×ÜÒ³Êı
+		//æŸ¥è¯¢å‡ºæ€»è¡Œæ•°ï¼Œä»è€Œè®¡ç®—å‡ºæ€»é¡µæ•°
 		page.setRows(accDao.findRows(page));
 		model.addAttribute("accountPage", page);
 		return "account/account_list";
@@ -34,27 +34,27 @@ public class AccountController {
 	
 	@RequestMapping("startAccount.do")
 	public String updateStart(@RequestParam("id")int id){
-		//ÔİÍ£ÕËÎñÕËºÅ
+		//æš‚åœè´¦åŠ¡è´¦å·
 		accDao.start(id);
 		return "redirect:findAccount.do";
 	}
 	
 	@RequestMapping("pauseAccount.do")
 	public String updatePause(@RequestParam("id")int id){
-		//ÔİÍ£ÕËÎñÕËºÅ
+		//æš‚åœè´¦åŠ¡è´¦å·
 		accDao.pause(id);
 		
-		// TODO ÔİÍ£ÕËÎñÕËºÅÊ±£¬ÒªÔİÍ£ËüÏÂÊôµÄÒµÎñÕËºÅ
+		// TODO æš‚åœè´¦åŠ¡è´¦å·æ—¶ï¼Œè¦æš‚åœå®ƒä¸‹å±çš„ä¸šåŠ¡è´¦å·
 		
 		return "redirect:findAccount.do";
 	}
 	
 	@RequestMapping("deleteAccount.do")
 	public String updateDelete(@RequestParam("id")int id){
-		//ÔİÍ£ÕËÎñÕËºÅ
+		//æš‚åœè´¦åŠ¡è´¦å·
 		accDao.delete(id);
 		
-		// TODO É¾³ıÕËÎñÕËºÅÊ±£¬ÒªÉ¾³ıËüÏÂÊôµÄÒµÎñÕËºÅ
+		// TODO åˆ é™¤è´¦åŠ¡è´¦å·æ—¶ï¼Œè¦åˆ é™¤å®ƒä¸‹å±çš„ä¸šåŠ¡è´¦å·
 		
 		return "redirect:findAccount.do";
 	}

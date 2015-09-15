@@ -1,4 +1,4 @@
-package com.tarena.test;
+ï»¿package com.tarena.test;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,7 +13,7 @@ import com.tarena.entity.page.CostPage;
 
 
 /**
- * ²âÊÔCostDao
+ * æµ‹è¯•CostDao
  * 
  * @author Jsong
  */
