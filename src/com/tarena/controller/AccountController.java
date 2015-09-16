@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tarena.dao.AccountDao;
 import com.tarena.entity.Account;
@@ -15,7 +16,8 @@ import com.tarena.entity.page.AccountPage;
 
 @Controller
 @RequestMapping("/account")
-public class AccountController {
+@SessionAttributes("accountPage")
+public class AccountController extends BaseController {
 	
 	@Resource
 	private AccountDao accDao;
@@ -56,6 +58,19 @@ public class AccountController {
 		
 		// TODO 删除账务账号时，要删除它下属的业务账号
 		
+		return "redirect:findAccount.do";
+	}
+	
+	@RequestMapping("toUpdateAccount.do")
+	public String toUpdate(@RequestParam("id") int id ,Model model) {
+		Account account = accDao.findById(id);
+		model.addAttribute("account", account);
+		return "account/update_account";
+	}
+	
+	@RequestMapping("updateAccount.do")
+	public String updateAccount(Account account){
+		accDao.update(account);
 		return "redirect:findAccount.do";
 	}
 

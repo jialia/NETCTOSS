@@ -40,4 +40,17 @@ public interface AccountDao {
 	 * @param id
 	 */
 	public void delete(int id);
+	
+	/**
+	 * 根据ID查询一条账务账号
+	 * @param id
+	 * @return
+	 */
+	public Account findById(int id);
+	
+	/**
+	 * 更新数据
+	 * @param account
+	 */
+	public void update(Account account);
 }

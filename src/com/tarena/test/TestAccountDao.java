@@ -51,11 +51,27 @@ public class TestAccountDao {
 		dao.start(1005);
 	}
 	
-	@Test
+//	@Test
 	public void testDelete(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AccountDao dao = context.getBean(AccountDao.class);
 		dao.delete(1005);
+	}
+	
+//	@Test
+	public void testFindById() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		System.out.println(dao.findById(1005));
+	}
+	
+	@Test
+	public void testUpdate() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		Account account = dao.findById(1005);
+		account.setEmail("zsf@wds.com");
+		dao.update(account);
 	}
 	
 

@@ -124,18 +124,15 @@
                         	<c:choose>
                         		<c:when test="${acc.status == 0}">
 		                            <input type="button" value="暂停" class="btn_pause" onclick="pause_account(${acc.account_id});" />
-        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
+        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateAccount.do?id=${acc.account_id}';" />
                 		            <input type="button" value="删除" class="btn_delete" onclick="alert('此账号没有暂停，请先暂停此账号');" />
 								</c:when>
                         		<c:when test="${acc.status == 1}">
 		                            <input type="button" value="开通" class="btn_start" onclick="start_account(${acc.account_id});" />
-        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
+        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateAccount.do?id=${acc.account_id}';" />
                 		            <input type="button" value="删除" class="btn_delete" onclick="delete_account(${acc.account_id});" />
 								</c:when>
                         		<c:otherwise>
-                		            <input type="button" value="开通" class="btn_start" onclick="start_account(${acc.account_id});" />
-        		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='account_modi.html';" />
-		                            <input type="button" value="暂停" class="btn_pause" onclick="pause_account(${acc.account_id});"/>
                         		</c:otherwise>
                         	</c:choose>
                         </td>

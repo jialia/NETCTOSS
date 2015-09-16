@@ -64,4 +64,18 @@
 		UPDATE account SET status = '2' , close_date=SYSDATE WHERE account_id = #{id}
 	</update>
 	
+	<!-- 根据ID查询账务账号 -->
+	<select id="findById"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Account"> 
+		SELECT * FROM account WHERE account_id = #{id}
+	</select>
+	
+	<!-- 更新账务账号 -->
+	<update id="update" parameterType="com.tarena.entity.Account">
+		UPDATE account SET real_name=#{real_name,jdbcType=VARCHAR} , telephone=#{telephone,jdbcType=VARCHAR} ,
+			email=#{email,jdbcType=VARCHAR} , occupation=#{occupation,jdbcType=VARCHAR},
+			gender=#{gender,jdbcType=VARCHAR} , mailaddress=#{mailaddress,jdbcType=VARCHAR} ,
+			zipcode=#{zipcode,jdbcType=VARCHAR} , qq=#{qq,jdbcType=VARCHAR} 
+		WHERE account_id=#{account_id}
+	</update>
+	
 </mapper>
