@@ -65,7 +65,7 @@ public class TestAccountDao {
 		System.out.println(dao.findById(1005));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AccountDao dao = context.getBean(AccountDao.class);
@@ -74,5 +74,12 @@ public class TestAccountDao {
 		dao.update(account);
 	}
 	
+	@Test
+	public void testFingByIdcardNo() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AccountDao dao = context.getBean(AccountDao.class);
+		Account account = dao.findByIdcardNo("410381194302256528");
+		System.out.println(account.getReal_name());
+	}
 
 }

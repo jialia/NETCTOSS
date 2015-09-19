@@ -53,4 +53,11 @@ public interface AccountDao {
 	 * @param account
 	 */
 	public void update(Account account);
+	
+	/**
+	 * 根据身份证查找
+	 * @param idcardNo
+	 * @return
+	 */
+	public Account findByIdcardNo(String idcardNo);
 }

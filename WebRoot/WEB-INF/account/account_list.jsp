@@ -110,7 +110,7 @@
                         </select>
                     </div>
                     <div><input type="button" value="搜索" class="btn_search" onclick="to_page(1)" /></div>
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='account_add.html';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='toAddAccount.do';" />
                 </div>  
                 <!--删除等的操作提示-->
                 <div id="operate_result_info" class="operate_success">
@@ -133,7 +133,7 @@
                     <c:forEach items="${accounts}" var="acc" >
                     <tr>
                         <td>${acc.account_id}</td>
-                        <td><a href="account_detail.html">${acc.real_name}</a></td>
+                        <td><a href="detailAccount.do?id=${acc.account_id}">${acc.real_name}</a></td>
                         <td>${acc.idcard_no}</td>
                         <td>${acc.login_name}</td>
                         <td>

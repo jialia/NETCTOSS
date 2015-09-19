@@ -94,4 +94,15 @@ public class AccountController extends BaseController {
 		return "redirect:findAccount.do";
 	}
 
+	@RequestMapping("detailAccount.do")
+	public String toDetail(@RequestParam("id") int id ,Model model) {
+		Account account = accDao.findById(id);
+		model.addAttribute("account", account);
+		return "account/detail_account";
+	}
+	
+	@RequestMapping("toAddAccount.do")
+	public String toAdd() {
+		return"account/add_account";
+	}
 }

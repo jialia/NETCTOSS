@@ -117,7 +117,7 @@
                         </select>
                     </div>
                     <div><input type="submit" value="搜索" class="btn_search" /></div>
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='service_add.html';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='toAddService.do';" />
                 </div>
                 </form>
                 <!--提示信息-->

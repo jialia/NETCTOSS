@@ -48,7 +48,7 @@ public class ServiceController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("startService.do")
+	@RequestMapping("/startService.do")
 	public Map<String, Object> updateStart(@RequestParam("id")int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -69,7 +69,7 @@ public class ServiceController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("pauseService.do")
+	@RequestMapping("/pauseService.do")
 	public Map<String, Object> updatePause(@RequestParam("id")int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		serviceDao.pause(id);
@@ -81,7 +81,7 @@ public class ServiceController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("deleteService.do")
+	@RequestMapping("/deleteService.do")
 	public Map<String, Object> deleteStart(@RequestParam("id")int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		serviceDao.delete(id);
@@ -92,7 +92,7 @@ public class ServiceController extends BaseController {
 		return result;
 	}
 	
-	@RequestMapping("toUpdateService.do")
+	@RequestMapping("/toUpdateService.do")
 	public String toUpdate(@RequestParam("id")int id , Model model){
 		Map<String, Object> service = serviceDao.findById(id);
 		model.addAttribute("service", service);
@@ -102,9 +102,22 @@ public class ServiceController extends BaseController {
 		return "service/update_service";
 	}
 	
-	@RequestMapping("updateService.do")
+	@RequestMapping("/updateService.do")
 	public String updateService(Service service){
 		serviceDao.update(service);
 		return "redirect:findService.do";
+	}
+	
+	@RequestMapping("/toAddService.do")
+	public String toAdd(Model model) {
+		List<Cost> costs = costDao.findAll();
+		model.addAttribute("costs",costs);
+		return "service/add_service";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/searchAccount.do")
+	public Account findAccount(@RequestParam("idcardNo")String idcardNo){
+		return accountDao.findByIdcardNo(idcardNo);
 	}
 }

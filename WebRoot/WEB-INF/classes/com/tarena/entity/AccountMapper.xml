@@ -78,4 +78,9 @@
 		WHERE account_id=#{account_id}
 	</update>
 	
+	<!-- 根据身份证查询账务账号 -->
+	<select id="findByIdcardNo" parameterType="java.lang.String" resultType="com.tarena.entity.Account" >
+		SELECT * FROM account WHERE idcard_no = #{idcardNo,jdbcType=VARCHAR}
+	</select>
+	
 </mapper>
