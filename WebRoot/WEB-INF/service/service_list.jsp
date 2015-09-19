@@ -7,6 +7,7 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
             //显示角色详细信息
             function showDetail(flag, a) {
@@ -17,27 +18,54 @@
                 else
                     detailDiv.style.display = "none";
             }
-         	// 开通
+            
+         // 开通
         	function start_service(id){
             	var r = window.confirm("确定要开通此业务账号吗？");
             	if(r){
-            		window.location.href="startService.do?id="+id;
+            		update_service_status("startService.do",id);
             	}
         	}
             // 暂停
             function pause_service(id){
                 var r = window.confirm("确定要暂停此业务账号吗？");
                 if(r){
-                	window.location.href="pauseService.do?id="+id;
+                	update_service_status("pauseService.do",id);
                 }
             }
             // 删除
             function delete_service(id){
                 var r = window.confirm("确定删除此业务账号吗？");
                 if(r){
-                	window.location.href="deleteService.do?id="+id;
+                	update_service_status("deleteService.do",id);
                 }
             }
+            
+         	// 处理返回信息
+        	function update_service_status(url,id){
+            	$.post(url,{"id":id},function(data){
+	            	$("#operate_result_info").removeClass();
+            		if(data.success){
+            			//修改提示框样式
+	            		$("#operate_result_info").addClass("operate_success");
+            		} else {
+	            		$("#operate_result_info").addClass("operate_fail");
+            		}
+            		$("#operate_msg").text(data.message);
+            		$("#operate_result_info").show();
+            		//推迟一段时间之后，关闭提示信息
+            		setTimeout(function(){
+            			if(data.success){
+            				//成功时，刷新页面，自动关闭提示信息
+            				window.location.href="findService.do";
+            			} else {
+            				// 失败时关闭提示信息
+		            		$("#operate_result_info").hide();
+            			}
+            		},2000);
+            	});
+        	}
+            
             function to_page(curr_page){
             	//将传入的页码赋值给表单中的页码文本框
             	document.getElementById("current_page").value = curr_page ;
@@ -92,10 +120,10 @@
                     <input type="button" value="增加" class="btn_add" onclick="location.href='service_add.html';" />
                 </div>
                 </form>
-                <!--删除的操作提示-->
+                <!--提示信息-->
                 <div id="operate_result_info" class="operate_success">
                     <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
-                    删除成功！
+                  	  <span id="operate_msg" >删除成功！</span>
                 </div>   
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
@@ -147,7 +175,7 @@
                         	<c:when test="${ser.STATUS == 1}">
 	                            <input type="button" value="开通" class="btn_start" onclick="start_service(${ser.SERVICE_ID});" />
     	                        <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateService.do?id=${ser.SERVICE_ID}';" />
-        	                    <input type="button" value="删除" class="btn_delete" onclick="start_service(${ser.SERVICE_ID});" />
+        	                    <input type="button" value="删除" class="btn_delete" onclick="delete_service(${ser.SERVICE_ID});" />
                         	</c:when>
                         	<c:otherwise>
                         	</c:otherwise>
@@ -181,7 +209,7 @@
 			                    <a href="javascript:to_page(${servicePage.currentPage})" class="current_page">${p}</a>
         	        		</c:when>
         	        		<c:otherwise>
-			                    <a href="javascript:to_page(${servicePage.currentPage})" >${p}</a>
+			                    <a href="javascript:to_page(${p})" >${p}</a>
         	        		</c:otherwise>
         	        	</c:choose>
         	        </c:forEach>

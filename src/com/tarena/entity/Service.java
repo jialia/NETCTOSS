@@ -1,19 +1,37 @@
 package com.tarena.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Service {
+
+/**
+ * 业务账号实体类
+ * 
+ * @author Administrator
+ */
+public class Service implements Serializable {
 	
-	private Integer service_id;
-	private Integer account_id;
-	private String unix_host;
-	private String os_username;
-	private String login_passwd;
-	private String status;
-	private Timestamp create_date;
-	private Timestamp pause_date;
-	private Timestamp close_date;
-	private Integer cost_id;
+	private static final long serialVersionUID = 1L;
+	
+	private Integer service_id;		//业务账号ID
+	
+	private Integer account_id;		//账务账号ID
+	
+	private String unix_host;		//服务器IP
+	
+	private String os_username;		//OS账号
+	
+	private String login_passwd;	//登录密码
+	
+	private String status;			//状态
+	
+	private Timestamp create_date;	//创建时间
+	
+	private Timestamp pause_date;	//暂停时间
+	
+	private Timestamp close_date;	//删除时间
+	
+	private Integer cost_id;		//资费ID
 	
 	public Service() {
 	}

@@ -9,7 +9,7 @@
 		SELECT * FROM cost ORDER BY cost_id
 	</select>
 	
-	<!-- 插入一条资费数据 -->
+	<!-- 添加资费数据 -->
 	<insert id="save" parameterType="com.tarena.entity.Cost">
 		INSERT INTO cost VALUES(
 			cost_seq.nextval , #{name,jdbcType=VARCHAR} , 
@@ -19,11 +19,13 @@
 			#{startime,jdbcType=TIMESTAMP} , #{cost_type,jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 查找单条资费信息 -->
 	<select id="findById" parameterType="java.lang.Integer" 
 			resultType="com.tarena.entity.Cost" >
 		SELECT * FROM cost WHERE cost_id = #{id}
 	</select>
 	
+	<!-- 更新资费信息 -->
 	<update id="update" parameterType="com.tarena.entity.Cost">
 		UPDATE cost SET  name=#{name,jdbcType=VARCHAR} , base_duration=#{base_duration,jdbcType=NUMERIC} , 
 			base_cost=#{base_cost,jdbcType=NUMERIC} ,	unit_cost=#{unit_cost,jdbcType=NUMERIC} ,
@@ -31,10 +33,12 @@
 		WHERE cost_id = ${cost_id} 
 	</update>
 	
+	<!-- 删除资费信息 -->
 	<delete id="delete" parameterType="java.lang.Integer">
 		delete from cost where cost_id = #{id}
 	</delete>
 	
+	<!-- 分页查找 -->
 	<select id="findByPage" parameterType="com.tarena.entity.page.CostPage" 
 		 resultType="com.tarena.entity.Cost" >
 	<![CDATA[
@@ -44,10 +48,12 @@
 	]]>
 	</select>
 	
+	<!-- 查找总行数 -->
 	<select id="findRows" resultType="java.lang.Integer" >
 		SELECT COUNT(*) FROM cost
 	</select>
 	
+	<!-- 分页查找并排序 -->
 	<select id="findBySort" parameterType="com.tarena.entity.page.CostPage" 
 		 resultType="com.tarena.entity.Cost" >
 		SELECT * FROM ( SELECT c.* , rownum r FROM (

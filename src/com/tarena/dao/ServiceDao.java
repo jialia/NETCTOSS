@@ -35,12 +35,24 @@ public interface ServiceDao {
 	 * @param id
 	 */
 	public void pause(int id);
+	
+	/**
+	 * 暂停某个账务账号下的所有业务账号
+	 * @param accout_id
+	 */
+	public void pauseByAccountID(int account_id);
 
 	/**
 	 * 删除业务账号
 	 * @param id
 	 */
 	public void delete(int id);
+	
+	/**
+	 * 删除账务账号下的所有业务账号
+	 * @param account_id
+	 */
+	public void deleteByAccountID(int account_id);
 	
 	/**
 	 * 根据ID查找单条信息

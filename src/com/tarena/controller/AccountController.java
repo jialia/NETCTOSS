@@ -1,6 +1,8 @@
 ﻿package com.tarena.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -8,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tarena.dao.AccountDao;
+import com.tarena.dao.ServiceDao;
 import com.tarena.entity.Account;
 import com.tarena.entity.page.AccountPage;
 
@@ -21,6 +25,9 @@ public class AccountController extends BaseController {
 	
 	@Resource
 	private AccountDao accDao;
+	
+	@Resource
+	private ServiceDao serDao;
 	
 	@RequestMapping("/findAccount.do")
 	public String find(AccountPage page , Model model) {
@@ -34,31 +41,44 @@ public class AccountController extends BaseController {
 		return "account/account_list";
 	}
 	
+	@ResponseBody
 	@RequestMapping("startAccount.do")
-	public String updateStart(@RequestParam("id")int id){
-		//暂停账务账号
+	public Map<String, Object> updateStart(@RequestParam("id")int id){
+		Map<String, Object> result = new HashMap<String, Object>();
+		//开通账务账号
 		accDao.start(id);
-		return "redirect:findAccount.do";
+		
+		result.put("success", true);
+		result.put("message", "开通成功");
+		
+		return result;
 	}
 	
+	@ResponseBody
 	@RequestMapping("pauseAccount.do")
-	public String updatePause(@RequestParam("id")int id){
+	public Map<String, Object> updatePause(@RequestParam("id")int id){
+		Map<String, Object> result = new HashMap<String, Object>();
 		//暂停账务账号
 		accDao.pause(id);
+		serDao.pauseByAccountID(id);
 		
-		// TODO 暂停账务账号时，要暂停它下属的业务账号
-		
-		return "redirect:findAccount.do";
+		result.put("success", true);
+		result.put("message", "暂停成功，且已暂停其下属的业务账号！");
+		return result;
 	}
 	
+	@ResponseBody
 	@RequestMapping("deleteAccount.do")
-	public String updateDelete(@RequestParam("id")int id){
+	public Map<String, Object> updateDelete(@RequestParam("id")int id){
+		Map<String, Object> result = new HashMap<String, Object>();
 		//暂停账务账号
 		accDao.delete(id);
+		serDao.deleteByAccountID(id);
 		
-		// TODO 删除账务账号时，要删除它下属的业务账号
+		result.put("success", true);
+		result.put("message", "删除成功，且已删除其下属的业务账号！");
 		
-		return "redirect:findAccount.do";
+		return result;
 	}
 	
 	@RequestMapping("toUpdateAccount.do")

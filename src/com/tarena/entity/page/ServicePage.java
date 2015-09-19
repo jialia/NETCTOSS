@@ -1,13 +1,20 @@
 package com.tarena.entity.page;
 
+/**
+ * 业务账号的分页组件
+ * @author Jsong
+ */
 public class ServicePage extends Page {
 	
 	private static final long serialVersionUID = 1L;
 
-	private String os_username;
-	private String unix_host;
-	private String idcard_no;
-	private String status;
+	private String os_username;		//OS账号
+	
+	private String unix_host;		//服务器IP
+	
+	private String idcard_no;		//身份证号
+	
+	private String status;			//状态
 	
 	public ServicePage() {
 	}

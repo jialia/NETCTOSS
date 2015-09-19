@@ -8,29 +8,55 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
         	// 开通
         	function start_account(id){
             	var r = window.confirm("确定要开通此账务账号吗？");
             	if(r){
-            		window.location.href="startAccount.do?id="+id;
+            		update_account_status("startAccount.do",id);
             	}
         	}
             // 暂停
             function pause_account(id){
                 var r = window.confirm("确定要暂停此账务账号吗？");
                 if(r){
-                	window.location.href="pauseAccount.do?id="+id;
+            		update_account_status("pauseAccount.do",id);
                 }
             }
             // 删除
             function delete_account(id){
-                var r = window.confirm("确定删除此账务账号吗？");
+                var r = window.confirm("确定要删除此账务账号吗？\r\n删除后将不能恢复，且会删除其下属的所有业务账号。");
                 if(r){
-                	window.location.href="deleteAccount.do?id="+id;
+            		update_account_status("deleteAccount.do",id);
                 }
             }
             
+         	// 处理返回信息
+        	function update_account_status(url,id){
+            	$.post(url,{"id":id},function(data){
+	            	$("#operate_result_info").removeClass();
+            		if(data.success){
+            			//修改提示框样式
+	            		$("#operate_result_info").addClass("operate_success");
+            		} else {
+	            		$("#operate_result_info").addClass("operate_fail");
+            		}
+            		$("#operate_msg").text(data.message);
+            		$("#operate_result_info").show();
+            		//推迟一段时间之后，关闭提示信息
+            		setTimeout(function(){
+            			if(data.success){
+            				//成功时，刷新页面，自动关闭提示信息
+            				window.location.href="findAccount.do";
+            			} else {
+            				// 失败时关闭提示信息
+		            		$("#operate_result_info").hide();
+            			}
+            		},2000);
+            	});
+        	}
+         
             function to_page(curr_page){
             	//将传入的页码赋值给表单中的页码文本框
             	document.getElementById("current_page").value = curr_page ;
@@ -89,7 +115,7 @@
                 <!--删除等的操作提示-->
                 <div id="operate_result_info" class="operate_success">
                     <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
-                    删除成功，且已删除其下属的业务账号！
+                    	<span id="operate_msg" >删除成功，且已删除其下属的业务账号！</span>
                 </div>   
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
@@ -125,7 +151,7 @@
                         		<c:when test="${acc.status == 0}">
 		                            <input type="button" value="暂停" class="btn_pause" onclick="pause_account(${acc.account_id});" />
         		                    <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateAccount.do?id=${acc.account_id}';" />
-                		            <input type="button" value="删除" class="btn_delete" onclick="alert('此账号没有暂停，请先暂停此账号');" />
+                		            <input type="button" value="删除" class="btn_delete" onclick="delete_account(${acc.account_id});" />
 								</c:when>
                         		<c:when test="${acc.status == 1}">
 		                            <input type="button" value="开通" class="btn_start" onclick="start_account(${acc.account_id});" />

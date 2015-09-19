@@ -4,30 +4,55 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+
+/**
+ * 账务账号实体类
+ *
+ * @author Jsong
+ */
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer account_id;
-	private Integer recommender_id;
-	private String login_name;
-	private String login_passwd;
-	private String status;
-	private Timestamp create_date;
-	private Timestamp pause_date;
-	private Timestamp close_date;
-	private String real_name;
-	private String idcard_no;
-	private Date birthdate;
-	private String gender;
-	private String occupation;
-	private String telephone;
-	private String email;
-	private String mailaddress;
-	private String zipcode;
-	private String qq;
-	private Timestamp last_login_time;
-	private String last_login_ip;
+	private Integer account_id;		//账务账号ID
+	
+	private Integer recommender_id;	//推荐人ID
+	
+	private String login_name;		//用户名
+	
+	private String login_passwd;	//密码
+	
+	private String status;			//状态
+	
+	private Timestamp create_date;	//创建时间
+	
+	private Timestamp pause_date;	//暂停时间
+	
+	private Timestamp close_date;	//关闭时间
+	
+	private String real_name;		//真实姓名
+	
+	private String idcard_no;		//身份证号
+	
+	private Date birthdate;			//出生日期
+	
+	private String gender;			//性别
+	
+	private String occupation;		//职位
+	
+	private String telephone;		//电话
+	
+	private String email;			//邮箱
+	
+	private String mailaddress;		//通信地址
+	
+	private String zipcode;			//邮编
+	
+	private String qq;				//QQ
+	
+	private Timestamp last_login_time;	//最后登录时间
+	
+	private String last_login_ip;		//最后登录IP
 	
 	public Account() {
 	}

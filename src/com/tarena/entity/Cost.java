@@ -14,16 +14,25 @@ public class Cost implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer cost_id;
-	private String name;
-	private Integer base_duration;
-	private Double base_cost;
-	private Double unit_cost;
-	private String descr;
-	private Timestamp creatime;
-	private Timestamp startime;
-	private String cost_type;
-	private int status;
+	private Integer cost_id;			//资费ID
+	
+	private String name;				//资费名
+	
+	private Integer base_duration;		//基本时长
+	
+	private Double base_cost;			//基本费用
+	
+	private Double unit_cost;			//单位费用
+	
+	private String descr;				//资费说明
+	
+	private Timestamp creatime;			//创建时间
+	
+	private Timestamp startime;			//开通时间
+	
+	private String cost_type;			//资费类型
+	
+	private int status;					//状态
 	
 	public Cost() {
 	}
