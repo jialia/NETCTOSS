@@ -13,16 +13,16 @@
 			FROM service s INNER JOIN account a ON a.account_id = s.account_id
 			INNER JOIN cost c ON c.cost_id = s.cost_id
 			<where>
-				<if test="os_username!=null &amp;&amp; os_username.lenght()>0">
+				<if test="os_username!=null &amp;&amp; os_username.length()>0">
 					AND s.os_username=#{os_username,jdbcType=VARCHAR}
 				</if>
-				<if test="unix_host!=null &amp;&amp; unix_host.lenght()>0">
+				<if test="unix_host!=null &amp;&amp; unix_host.length()>0">
 					AND s.unix_host=#{unix_host,jdbcType=VARCHAR}
 				</if>
-				<if test="idcard_no!=null &amp;&amp; idcard_no.lenght()>0">
+				<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
 					AND a.idcard_no=#{idcard_no,jdbcType=VARCHAR}
 				</if>
-				<if test="status!=null &amp;&amp; status.lenght()>0  &amp;&amp; !status.equals('-1')">
+				<if test="status!=null &amp;&amp; status.length()>0  &amp;&amp; !status.equals('-1')">
 					AND s.status=#{status,jdbcType=VARCHAR}
 				</if>
 			</where>
@@ -30,5 +30,57 @@
 		) s
 	) WHERE r&lt;#{end} AND r>#{begin}			
 	</select>
+	
+	<!-- 查询总行数 -->
+	<select id="findRows" parameterType="com.tarena.entity.page.ServicePage" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM (
+		SELECT s.*,ROWNUM r FROM (
+			SELECT s.* , a.idcard_no , a.real_name , c.name AS cost_name ,c.descr
+			FROM service s INNER JOIN account a ON a.account_id = s.account_id
+			INNER JOIN cost c ON c.cost_id = s.cost_id
+			<where>
+				<if test="os_username!=null &amp;&amp; os_username.length()>0">
+					AND s.os_username=#{os_username,jdbcType=VARCHAR}
+				</if>
+				<if test="unix_host!=null &amp;&amp; unix_host.length()>0">
+					AND s.unix_host=#{unix_host,jdbcType=VARCHAR}
+				</if>
+				<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
+					AND a.idcard_no=#{idcard_no,jdbcType=VARCHAR}
+				</if>
+				<if test="status!=null &amp;&amp; status.length()>0  &amp;&amp; !status.equals('-1')">
+					AND s.status=#{status,jdbcType=VARCHAR}
+				</if>
+			</where>
+			ORDER BY s.service_id
+			) s )
+	</select>
+
+	<!-- 开通业务账号 -->
+	<update id="start" parameterType="java.lang.Integer">
+		UPDATE service SET status = '0' , pause_date=null WHERE service_id = #{id}
+	</update>
+	
+	<!-- 暂停业务账号 -->
+	<update id="pause" parameterType="java.lang.Integer">
+		UPDATE service SET status = '1' , pause_date=SYSDATE WHERE service_id = #{id}
+	</update>
+	
+	<!-- 删除业务 -->
+	<update id="delete" parameterType="java.lang.Integer">
+		UPDATE service SET status = '2' , close_date=SYSDATE WHERE service_id = #{id}
+	</update>
+	
+	<!-- 根据ID查找单条信息 -->
+	<select id="findById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		SELECT s.* , a.idcard_no , a.real_name , c.name AS cost_name ,c.descr
+			FROM service s INNER JOIN account a ON a.account_id = s.account_id
+			INNER JOIN cost c ON c.cost_id = s.cost_id WHERE s.service_id = #{id}
+	</select>
+	
+	<!-- 更新业务账号数据 -->
+	<update id="update" parameterType="com.tarena.entity.Service">
+		UPDATE service SET cost_id = #{cost_id} WHERE service_id = #{service_id}
+	</update>
 
 </mapper>

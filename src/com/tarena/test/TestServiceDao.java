@@ -8,11 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.tarena.dao.ServiceDao;
+import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
 
 public class TestServiceDao {
 
-	@Test
+//	@Test
 	public void testFindByPage() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ServiceDao dao = context.getBean(ServiceDao.class);
@@ -26,6 +27,38 @@ public class TestServiceDao {
 		  + map.get("COST_NAME") + " "
 		  );
 		}
+	}
+	
+//	@Test
+	public void testFindByRows(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		ServicePage page = new ServicePage();
+		System.out.println(dao.findRows(page));
+	}
+	
+//	@Test
+	public void testPauseService(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		dao.pause(2001);
+	}
+	
+//	@Test
+	public void testFindById(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		System.out.println(dao.findById(2001));
+	}
+	
+	@Test
+	public void testUpdate() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		Service service = new Service();
+		service.setService_id(2001);
+		service.setCost_id(2);
+		dao.update(service);
 	}
 	
 }
