@@ -62,9 +62,28 @@ public interface ServiceDao {
 	public Map<String, Object> findById(int id);
 	
 	/**
-	 * 更新业务账号
+	 * 更新业务账号(向service_update_bak表中插入)
 	 * @param service
 	 */
 	public void update(Service service);
+	
+	/**
+	 * 查找已有的数据更新
+	 * @param service_id
+	 * @return
+	 */
+	public Map<String, Object> findUpdate(int service_id);
+	
+	/**
+	 * 删除已有更新
+	 * @param service_id
+	 */
+	public void deleteUpdate(int service_id);
+	
+	/**
+	 * 添加新的业务账号
+	 * @param service
+	 */
+	public void add(Service service);
 	
 }

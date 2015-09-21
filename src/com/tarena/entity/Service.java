@@ -21,7 +21,7 @@ public class Service implements Serializable {
 	
 	private String os_username;		//OS账号
 	
-	private String login_passwd;	//登录密码
+	private String login_password;	//登录密码
 	
 	private String status;			//状态
 	
@@ -60,11 +60,11 @@ public class Service implements Serializable {
 	public void setOs_username(String os_username) {
 		this.os_username = os_username;
 	}
-	public String getLogin_passwd() {
-		return login_passwd;
+	public String getLogin_password() {
+		return login_password;
 	}
-	public void setLogin_passwd(String login_passwd) {
-		this.login_passwd = login_passwd;
+	public void setLogin_password(String login_password) {
+		this.login_password = login_password;
 	}
 	public String getStatus() {
 		return status;

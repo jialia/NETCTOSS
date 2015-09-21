@@ -189,6 +189,15 @@ ON A.ID = S.ACCOUNT_ID;
 ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-RR';
 
 
+--业务资费更新备份表
+CREATE TABLE SERVICE_UPDATE_BAK(
+ ID		NUMBER(10) PRIMARY KEY,
+ SERVICE_ID	NUMBER(9) NOT NULL,
+ COST_ID		NUMBER(4)  NOT NULL
+);
+
+create sequence service_bak_seq;
+
 --业务详单表
 --drop table SERVICE_DETAIL
 create table service_detail(

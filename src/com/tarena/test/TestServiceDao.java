@@ -1,6 +1,7 @@
 package com.tarena.test;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.tarena.dao.AccountDao;
 import com.tarena.dao.ServiceDao;
-import com.tarena.entity.Account;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
 
@@ -47,7 +47,7 @@ public class TestServiceDao {
 		dao.pause(2001);
 	}
 	
-	@Test
+//	@Test
 	public void testFindById(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ServiceDao dao = context.getBean(ServiceDao.class);
@@ -71,4 +71,28 @@ public class TestServiceDao {
 		dao.update(service);
 	}
 	
+//	@Test
+	public void testAdd(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		Service service = new Service();
+		service.setAccount_id(1010);
+		service.setUnix_host("123.123.123.123");
+		service.setOs_username("abc");
+		service.setLogin_password("abc");
+		service.setStatus("1");
+		service.setCreate_date(new Timestamp(System.currentTimeMillis()));
+		service.setPause_date(null);
+		service.setClose_date(null);
+		service.setCost_id(2);
+		dao.add(service);
+	}
+	
+	@Test
+	public void testFindUpdate() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ServiceDao dao = context.getBean(ServiceDao.class);
+		Map<String, Object> update = dao.findUpdate(1010);
+		System.out.println(update != null && update.size() != 0);
+	}
 }

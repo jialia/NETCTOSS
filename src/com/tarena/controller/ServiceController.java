@@ -1,6 +1,7 @@
 package com.tarena.controller;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +105,11 @@ public class ServiceController extends BaseController {
 	
 	@RequestMapping("/updateService.do")
 	public String updateService(Service service){
+		Map<String, Object> update = serviceDao.findUpdate(service.getService_id());
+		// 删除原有的数据更新
+		if (update != null && update.size() != 0) {
+			serviceDao.deleteUpdate(service.getService_id());
+		}
 		serviceDao.update(service);
 		return "redirect:findService.do";
 	}
@@ -119,5 +125,13 @@ public class ServiceController extends BaseController {
 	@RequestMapping("/searchAccount.do")
 	public Account findAccount(@RequestParam("idcardNo")String idcardNo){
 		return accountDao.findByIdcardNo(idcardNo);
+	}
+	
+	@RequestMapping("/addService.do")
+	public String add(Service service){
+		service.setStatus("0");
+		service.setCreate_date(new Timestamp(System.currentTimeMillis()));
+		serviceDao.add(service);
+		return "redirect:findService.do";
 	}
 }

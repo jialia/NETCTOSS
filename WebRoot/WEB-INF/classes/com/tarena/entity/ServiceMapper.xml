@@ -86,9 +86,26 @@
 			INNER JOIN cost c ON c.cost_id = s.cost_id WHERE s.service_id = #{id,jdbcType=NUMERIC}
 	</select>
 	
-	<!-- 更新业务账号数据 -->
-	<update id="update" parameterType="com.tarena.entity.Service">
-		UPDATE service SET cost_id = #{cost_id,jdbcType=NUMERIC} WHERE service_id = #{service_id,jdbcType=NUMERIC}
-	</update>
+	<!-- 查找已有的数据更新 -->
+	<select id="findUpdate" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		SELECT * FROM service_update_bak WHERE service_id = #{service_id,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 删除已有数据更新 -->
+	<delete id="deleteUpdate" parameterType="java.lang.Integer" >
+		DELETE FROM service_update_bak WHERE service_id = #{service_id,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 更新业务账号数据 ，向更新表中插入-->
+	<insert id="update" parameterType="com.tarena.entity.Service">
+		INSERT INTO service_update_bak VALUES(service_bak_seq.nextval , #{service_id,jdbcType=NUMERIC} , #{cost_id,jdbcType=NUMERIC})
+	</insert>
+	
+	<!-- 添加新的业务账号 -->
+	<insert id="add" parameterType="com.tarena.entity.Service" >
+		INSERT INTO service  VALUES(service_seq.nextval , #{account_id,jdbcType=NUMERIC},#{unix_host,jdbcType=VARCHAR},#{os_username,jdbcType=VARCHAR},
+		 #{login_password,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{create_date,jdbcType=TIMESTAMP},#{pause_date,jdbcType=TIMESTAMP},
+		 #{close_date,jdbcType=TIMESTAMP},#{cost_id,jdbcType=NUMERIC})
+	</insert>
 
 </mapper>
