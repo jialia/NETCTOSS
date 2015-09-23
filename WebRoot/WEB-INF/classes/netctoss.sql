@@ -286,7 +286,7 @@ create table role_info(
 		role_id		number(4) 		constraint role_info_id_pk primary key,
 		name 		varchar2(50) 	not null
 );
-
+create sequence role_seq start with 1000;
 
 --角色模块表
 --drop table ROLE_MODULE;

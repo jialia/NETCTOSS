@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.tarena.dao.RoleDao">
+
+	<!-- 查询某一页的角色数据 ，关联查询出角色对应的模块-->
+	<select id="findByPage" parameterType="com.tarena.entity.page.RolePage" resultMap="roleMap" >
+		SELECT * FROM (
+		SELECT A.* ,ROWNUM R FROM (
+			SELECT * FROM ROLE_INFO ORDER BY ROLE_ID
+		) A ) WHERE R &lt; #{end} and r>#{begin}
+	</select>
+	<select id="findModule" parameterType="java.lang.Integer" 
+		resultType="com.tarena.entity.Module">
+		SELECT * FROM MODULE_INFO WHERE MODULE_ID IN (
+			SELECT MODULE_ID FROM ROLE_MODULE WHERE ROLE_ID = #{role_id}
+		)
+	</select>
+	<resultMap id="roleMap" type="com.tarena.entity.Role" >
+		<id column="role_id" property="role_id" />
+		<collection property="modules" javaType="java.util.ArrayList" 
+			ofType="com.tarena.entity.Module" column="role_id" select="findModule" ></collection>
+	</resultMap>
+	
+	<!-- 查询总行数 -->
+	<select id="findRows" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ROLE_INFO
+	</select>
+	
+</mapper>
