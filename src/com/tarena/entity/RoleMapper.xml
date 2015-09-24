@@ -28,4 +28,32 @@
 		SELECT COUNT(*) FROM ROLE_INFO
 	</select>
 	
+	<!-- 查询全部的模块 -->
+	<select id="findAllModules" resultType="com.tarena.entity.Module" >
+		SELECT * FROM module_info
+	</select>
+	
+	<!-- 新增角色 -->
+	<insert id="save" parameterType="com.tarena.entity.Role">
+		<selectKey keyProperty="role_id" resultType="java.lang.Integer" order="BEFORE">
+			SELECT role_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO role_info VALUES(#{role_id,jdbcType=NUMERIC} , #{name,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 新增中间表 -->
+	<insert id="saveRoleModule" parameterType="java.util.Map">
+		INSERT INTO role_module VALUES(#{role_id,jdbcType=NUMERIC} , #{module_id,jdbcType=NUMERIC})
+	</insert>
+	
+	<!-- 删除角色 -->
+	<delete id="delete" parameterType="java.lang.Integer" >
+		DELETE FROM  role_info where role_id=#{role_id,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 删除角色模块中间表 -->
+	<delete id="deleteroleModule" parameterType="java.lang.Integer" >
+		DELETE FROM  role_module  where role_id=#{id,jdbcType=NUMERIC}
+	</delete>
+	
 </mapper>

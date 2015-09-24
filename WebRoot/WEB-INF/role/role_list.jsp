@@ -8,9 +8,11 @@
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
         <script language="javascript" type="text/javascript">
-            function deleteRole() {
+            function deleteRole(id) {
                 var r = window.confirm("确定要删除此角色吗？");
-                document.getElementById("operate_result_info").style.display = "block";
+                if(r) {
+                	window.location.href="deleteRole.do?id="+id;
+                }
             }
         </script>
     </head>
@@ -25,11 +27,11 @@
         <div id="navi">                        
             <ul id="menu">
                 <li><a href="../index.html" class="index_off"></a></li>
-                <li><a href="../role/findRole" class="role_on"></a></li>
+                <li><a href="../role/findRole.do" class="role_on"></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="../cost/findCost.do" class="fee_off"></a></li>
                 <li><a href="../account/findAccount.do" class="account_off"></a></li>
-                <li><a href="../service/service_list.html" class="service_off"></a></li>
+                <li><a href="../service/findService.do" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>
                 <li><a href="../user/user_info.html" class="information_off"></a></li>
@@ -42,7 +44,7 @@
             <form action="" method="">
                 <!--查询-->
                 <div class="search_add">
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='role_add.html';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='toAddRole.do';" />
                 </div>  
                 <!--删除的操作提示-->
                 <div id="operate_result_info" class="operate_success">
@@ -72,7 +74,7 @@
 								</td>
                 	            <td>
                     	            <input type="button" value="修改" class="btn_modify" onclick="location.href='role_modi.html';"/>
-                        	        <input type="button" value="删除" class="btn_delete" onclick="deleteRole();" />
+                        	        <input type="button" value="删除" class="btn_delete" onclick="deleteRole(${role.role_id});" />
                             	</td>
                         	</tr>
                         </c:forEach>                
@@ -80,13 +82,33 @@
                 </div> 
                 <!--分页-->
                 <div id="pages">
-        	        <a href="#">上一页</a>
-                    <a href="#" class="current_page">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">下一页</a>
+                	<c:choose>
+                		<c:when test="${rolePage.currentPage == 1}">
+                			<a href="javascript:;" >上一页</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="findRole.do?currentPage=${rolePage.currentPage - 1}" >上一页</a>
+                		</c:otherwise>
+                	</c:choose>
+        	        <c:forEach begin="1" end="${rolePage.totalPage}" var="p">
+        	        <c:choose>
+        	        	<c:when test="${p == rolePage.currentPage }">
+		                    <a href="findRole.do?currentPage=${p}" class="current_page">${p}</a>
+        	        	</c:when>
+        	        	<c:otherwise>
+		                    <a href="findRole.do?currentPage=${p}">${p}</a>
+        	        	</c:otherwise>
+        	        </c:choose>
+        	        </c:forEach>
+                    
+                    <c:choose>
+                    	<c:when test="${rolePage.currentPage == rolePage.totalPage}">
+		                    <a href="javascript:;">下一页</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="findRole.do?currentPage=${rolePage.currentPage + 1}" >下一页</a>
+                		</c:otherwise>
+                    </c:choose>
                 </div>
             </form>
         </div>

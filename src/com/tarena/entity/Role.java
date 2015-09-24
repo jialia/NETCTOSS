@@ -8,6 +8,10 @@ public class Role {
 	
 	private String name;
 	
+	//一组模块Id，持久化时使用
+	private List<Integer> moduleIds;
+	
+	//关联属性，查询时使用
 	private List<Module> modules;
 
 	public Integer getRole_id() {
@@ -32,6 +36,14 @@ public class Role {
 
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+	public List<Integer> getModuleIds() {
+		return moduleIds;
+	}
+
+	public void setModuleIds(List<Integer> moduleIds) {
+		this.moduleIds = moduleIds;
 	}
 
 	@Override
