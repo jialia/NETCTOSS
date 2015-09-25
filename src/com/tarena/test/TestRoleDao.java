@@ -30,12 +30,19 @@ public class TestRoleDao {
 		dao.save(r);
 	}
 	
-	@Test
+//	@Test
 	public void testDelete() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		RoleDao dao = context.getBean(RoleDao.class);
 		dao.deleteroleModule(1001);
 		dao.delete(1001);
+	}
+	
+	@Test
+	public void testFindById() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		RoleDao dao = context.getBean(RoleDao.class);
+		System.out.println(dao.findById(200));
 	}
 
 }

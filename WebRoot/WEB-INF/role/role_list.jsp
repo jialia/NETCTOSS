@@ -73,7 +73,7 @@
             	                	</c:forEach>
 								</td>
                 	            <td>
-                    	            <input type="button" value="修改" class="btn_modify" onclick="location.href='role_modi.html';"/>
+                    	            <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateRole.do?id=${role.role_id}';"/>
                         	        <input type="button" value="删除" class="btn_delete" onclick="deleteRole(${role.role_id});" />
                             	</td>
                         	</tr>

@@ -48,12 +48,21 @@
 	
 	<!-- 删除角色 -->
 	<delete id="delete" parameterType="java.lang.Integer" >
-		DELETE FROM  role_info where role_id=#{role_id,jdbcType=NUMERIC}
+		DELETE FROM  role_info WHERE role_id=#{role_id,jdbcType=NUMERIC}
 	</delete>
 	
 	<!-- 删除角色模块中间表 -->
 	<delete id="deleteroleModule" parameterType="java.lang.Integer" >
-		DELETE FROM  role_module  where role_id=#{id,jdbcType=NUMERIC}
+		DELETE FROM  role_module  WHERE role_id=#{role_id,jdbcType=NUMERIC}
 	</delete>
 	
+	<!-- 根据角色Id查询 -->
+	<select id="findById" parameterType="java.lang.Integer" resultMap="roleMap" >
+		SELECT * FROM role_info WHERE role_id=#{id,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 修改角色 -->
+	<update id="update" parameterType="com.tarena.entity.Role">
+		UPDATE role_info SET name=#{name,jdbcType=VARCHAR} WHERE role_id = #{role_id,jdbcType=NUMERIC}
+	</update>
 </mapper>

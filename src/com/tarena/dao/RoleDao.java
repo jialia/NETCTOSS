@@ -43,13 +43,25 @@ public interface RoleDao {
 	
 	/**
 	 * 删除角色
-	 * @param id
 	 */
-	public void delete(int id);
+	public void delete(int role_id);
 	
 	/**
 	 * 删除角色模块中间表
 	 */
-	public void deleteroleModule(int id);
+	public void deleteroleModule(int role_id);
+	
+	/**
+	 * 根据角色Id查询
+	 * @param id
+	 * @return
+	 */
+	public Role findById(int id);
+	
+	/**
+	 * 修改角色
+	 * @param role
+	 */
+	public void update(Role role);
 	
 }

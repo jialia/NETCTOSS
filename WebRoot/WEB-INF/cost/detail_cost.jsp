@@ -19,11 +19,11 @@
         <div id="navi">
             <ul id="menu">
                 <li><a href="../index.html" class="index_off"></a></li>
-                <li><a href="../role/role_list.html" class="role_off"></a></li>
+                <li><a href="../role/findRole.do" class="role_off"></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="../cost/findCost.do" class="fee_on"></a></li>
                 <li><a href="../account/findAccount.do" class="account_off"></a></li>
-                <li><a href="../service/service_list.html" class="service_off"></a></li>
+                <li><a href="../service/findService.do" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>
                 <li><a href="../user/user_info.html" class="information_off"></a></li>
@@ -85,7 +85,7 @@
                     <textarea class="width300 height70 readonly" readonly>${cost.descr}</textarea>
                 </div>                    
                 <div class="button_info clearfix">
-                    <input type="button" value="返回" class="btn_save" onclick="location.href='fee_list.html';" />
+                    <input type="button" value="返回" class="btn_save" onclick="history.back();"/>
                 </div>
             </form>  
         </div>

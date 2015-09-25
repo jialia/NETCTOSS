@@ -59,10 +59,38 @@ public class RoleController extends BaseController {
 		return "redirect:findRole.do";
 	}
 	
-	@RequestMapping("deleteRole.do")
+	@RequestMapping("/deleteRole.do")
 	public String delete(@RequestParam("id")int id) {
 		roleDao.deleteroleModule(id);
 		roleDao.delete(id);
+		return "redirect:findRole.do";
+	}
+	
+	@RequestMapping("/toUpdateRole.do")
+	public String toUpdate(@RequestParam("id")int id , Model model) {
+		List<Module> list = roleDao.findAllModules();
+		model.addAttribute("modules", list);
+		Role role = roleDao.findById(id);
+		model.addAttribute("role", role);
+		return "role/update_role";
+	}
+	
+	@RequestMapping("/updateRole.do")
+	public String update(Role role) {
+		//更新角色表
+		roleDao.update(role);
+		//删除中间表
+		roleDao.deleteroleModule(role.getRole_id());
+		//添加中间表
+		List<Integer> moduleIds = role.getModuleIds();
+		if (moduleIds != null && moduleIds.size() > 0) {
+			for (Integer muduleId : moduleIds) {
+				Map<String, Object> roleModule = new HashMap<String, Object>();
+				roleModule.put("role_id", role.getRole_id());
+				roleModule.put("module_id", muduleId);
+				roleDao.saveRoleModule(roleModule);
+			}
+		}
 		return "redirect:findRole.do";
 	}
 

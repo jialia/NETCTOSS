@@ -46,22 +46,28 @@
         </div>
         <!--导航区域结束-->
         <!--主要区域开始-->
-        <div id="main">            
+        <div id="main">           
             <!--保存操作后的提示信息：成功或者失败-->
-            <div id="save_result_info" class="save_success">保存成功！</div><!--保存失败，角色名称重复！-->
-            <form action="addRole.do" method="post" class="main_form">
+            <div id="save_result_info" class="save_success">保存成功！</div>
+            <form action="updateRole.do" method="post" class="main_form">
+            	<!-- 将role_id存入hidden，修改保存时使用 -->
+            	<input type="hidden" name="role_id" value="${role.role_id }" />
                 <div class="text_info clearfix"><span>角色名称：</span></div>
                 <div class="input_info">
-                    <input type="text" name="name" class="width200" />
+                    <input type="text" class="width200" name="name" value="${role.name}" />
                     <span class="required">*</span>
-                    <div class="validate_msg_medium">不能为空，且为20长度的字母、数字和汉字的组合</div>
+                    <div class="validate_msg_medium error_msg">不能为空，且为20长度的字母、数字和汉字的组合</div>
                 </div>                    
                 <div class="text_info clearfix"><span>设置权限：</span></div>
                 <div class="input_info_high">
                     <div class="input_info_scroll">
                         <ul>
-                        	<c:forEach items="${modules}" var="md" >
-                            	<li><input type="checkbox" name="moduleIds" value="${md.module_id}" />${md.name}</li>
+                           <c:forEach items="${modules}" var="md" >
+                            	<li><input type="checkbox" name="moduleIds" value="${md.module_id}" 
+                            	<c:forEach items="${role.modules}" var="m" >
+                            		<c:if test="${m.module_id == md.module_id}" >checked</c:if>
+                            	</c:forEach>
+                            	/>${md.name}</li>
                         	</c:forEach>
                         </ul>
                     </div>
@@ -72,7 +78,7 @@
                     <input type="submit" value="保存" class="btn_save" />
                     <input type="button" value="取消" class="btn_save" onclick="history.back();" />
                 </div>
-            </form>
+            </form> 
         </div>
         <!--主要区域结束-->
         <div id="footer">
