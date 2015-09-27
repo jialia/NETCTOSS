@@ -311,6 +311,9 @@ create table admin_info(
    	enrolldate 	date default sysdate not null
 );
 
+create sequence admin_seq start with 8000;
+
+drop sequence admin_seq;
 
 --管理员角色表
 --drop table ADMIN_ROLE

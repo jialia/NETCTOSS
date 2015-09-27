@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.tarena.dao.AdminDao">
+
+	<!-- 分页查找 -->
+	<select id="findByPage" parameterType="com.tarena.entity.page.AdminPage"
+			resultType="com.tarena.entity.Admin" resultMap="adminMap" >
+			SELECT * FROM (
+				SELECT  a.* , ROWNUM r  FROM(
+				SELECT  *  FROM  admin_info
+				ORDER BY admin_id
+				) a
+			) WHERE r &lt; #{end} AND r &gt; #{begin}
+	</select>
+	<select id="findRole" parameterType="java.lang.Integer" 
+		resultType="com.tarena.entity.Role" >
+		select * from role_info where role_id in (
+			select role_id from admin_role 
+			where admin_id = #{admin_id,jdbcType=NUMERIC}
+		)
+	</select>
+	<resultMap id="adminMap" type="com.tarena.entity.Admin">
+		<id column="admin_id" property="admin_id" />
+		<collection property="roles" javaType="java.util.ArrayList" 
+		ofType="com.tarena.entity.Role" column="admin_id" select="findRole" ></collection>
+	 </resultMap>
+	 
+	 <!-- 查询总行数 -->
+	 <select id="findRows" resultType="java.lang.Integer">
+	 	select count(*) from admin_info
+	 </select>
+	 
+	 <!-- 添加管理员 -->
+	 <insert id="save" parameterType="com.tarena.entity.Admin" >
+	 	insert into admin_info values(admin_seq.nextval,#{admin_code,jdbcType=VARCHAR},
+	 	#{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},
+	 	#{email,jdbcType=VARCHAR},#{enrolldate,jdbcType=TIMESTAMP})
+	 </insert>
+	
+	<!-- 添加管理员角色 -->
+ 	<insert id="saveAdminrole" parameterType="java.util.Map" >
+		insert into admin_role values(#{admin_id,jdbcType=NUMERIC},#{role_id,jdbcType=NUMERIC})
+	</insert>
+	
+</mapper>
