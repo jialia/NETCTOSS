@@ -37,10 +37,28 @@ public interface AdminDao {
 	public void saveAdminRole(Map<String, Object> roles);
 	
 	/**
+	 * 删除管理员
+	 * @param id
+	 */
+	public void delete(Integer admin_id);
+	
+	/**
+	 * 删除管理员角色
+	 * @param id
+	 */
+	public void deleteAdminRole(Integer admin_id);
+	
+	/**
 	 * 根据Id查询
 	 * @param id
 	 * @return
 	 */
 	public Admin findById(Integer id);
+	
+	/**
+	 * 更新管理员信息
+	 * @param admin
+	 */
+	public void update(Admin admin);
 	
 }

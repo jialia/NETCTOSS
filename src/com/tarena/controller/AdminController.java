@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tarena.dao.AdminDao;
 import com.tarena.dao.RoleDao;
@@ -60,6 +61,41 @@ public class AdminController {
 				adminDao.saveAdminRole(adminRole);
 			}
 			
+		}
+		return "redirect:findAdmin.do";
+	}
+
+	@RequestMapping("/deleteAdmin.do")
+	public String delete(@RequestParam("id")int id,Model model) {
+		adminDao.deleteAdminRole(id);
+		adminDao.delete(id);
+		return "redirect:findAdmin.do";
+	}
+	
+	@RequestMapping("/toUpdateAdmin")
+	public String toUpdate(@RequestParam("id")int id,Model model){
+		List<Role> list = roleDao.findAllRole();
+		model.addAttribute("roles", list);
+		
+		Admin admin = adminDao.findById(id);
+		model.addAttribute("admin",admin);
+		
+		return "admin/update_admin";
+	}
+	
+	@RequestMapping("/updateAdmin")
+	public String update(Admin admin , Model model) {
+		adminDao.update(admin);
+		
+		adminDao.deleteAdminRole(admin.getAdmin_id());
+		List<Integer> roles = admin.getRoleIds();
+		if (roles != null && roles.size() > 0) {
+			for (Integer roleId : roles) {
+				Map<String, Object> adminRole = new HashMap<String, Object>();
+				adminRole.put("admin_id", admin.getAdmin_id());
+				adminRole.put("role_id", roleId);
+				adminDao.saveAdminRole(adminRole);
+			}
 		}
 		return "redirect:findAdmin.do";
 	}

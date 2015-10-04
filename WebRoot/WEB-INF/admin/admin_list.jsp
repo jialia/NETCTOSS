@@ -24,9 +24,11 @@
                 //document.getElementById("operate_result_info").style.display = "block";
             }
             //删除
-            function deleteAdmin() {
+            function deleteAdmin(id) {
                 var r = window.confirm("确定要删除此管理员吗？");
-                document.getElementById("operate_result_info").style.display = "block";
+                if(r){
+                	window.location.href="deleteAdmin.do?id=" + id;
+                }
             }
             //全选
             function selectAdmins(inputObj) {
@@ -132,8 +134,8 @@
                             	</c:choose>
                             </td>
                             <td class="td_modi">
-                                <input type="button" value="修改" class="btn_modify" onclick="location.href='admin_modi.html';" />
-                                <input type="button" value="删除" class="btn_delete" onclick="deleteAdmin();" />
+                                <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateAdmin.do?id=${admin.admin_id}';" />
+                                <input type="button" value="删除" class="btn_delete" onclick="deleteAdmin(${admin.admin_id});" />
                             </td>
                         </tr>
                         </c:forEach>                    

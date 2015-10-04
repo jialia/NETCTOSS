@@ -43,7 +43,7 @@ public class TestAdminDao {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testAddAdminRole() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);
@@ -51,6 +51,13 @@ public class TestAdminDao {
 		roles.put("admin_id", 8020);
 		roles.put("role_id", 100);
 		dao.saveAdminRole(roles);
+	}
+	
+	@Test
+	public void testFindById() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AdminDao dao = context.getBean(AdminDao.class);
+		System.out.println(dao.findById(8021));
 	}
 
 }

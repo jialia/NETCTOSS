@@ -64,4 +64,26 @@
 		insert into admin_role values(#{admin_id,jdbcType=NUMERIC},#{role_id,jdbcType=NUMERIC})
 	</insert>
 	
+	<!-- 根据Id查询管理员 -->
+	<select id="findById" parameterType="java.lang.Integer" 
+		resultType="com.tarena.entity.Admin" resultMap="adminMap">
+		select * from admin_info where admin_id = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 删除管理员 -->
+	<delete id="delete" parameterType="java.lang.Integer" >
+		DELETE FROM  admin_info WHERE admin_id=#{admin_id,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 删除管理员角色 -->
+	<delete id="deleteAdminRole" parameterType="java.lang.Integer" >
+		DELETE FROM  admin_role WHERE admin_id=#{admin_id,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 修改管理员 -->
+	<update id="update" parameterType="com.tarena.entity.Admin">
+		UPDATE admin_info SET name=#{name,jdbcType=VARCHAR},telephone=#{telephone,jdbcType=VARCHAR},
+	 	email=#{email,jdbcType=VARCHAR} WHERE admin_id = #{admin_id,jdbcType=NUMERIC}
+	</update>
+	
 </mapper>
