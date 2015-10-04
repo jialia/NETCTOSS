@@ -23,7 +23,7 @@
 							AND rm.module_id = #{moduleId,jdbcType=NUMERIC}
 						</if>
 						<if test="roleName != null &amp;&amp; roleName.length()>0">
-							AND ri.name LIKE '%||#{roleName}||%'
+							AND ri.name LIKE '%'||#{roleName}||'%'
 						</if>
 					</where>
 					

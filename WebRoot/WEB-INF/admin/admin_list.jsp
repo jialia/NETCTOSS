@@ -39,6 +39,13 @@
                     }
                 }
             }
+            
+            function to_page(curr_page){
+            	//将传入的页码赋值给表单中的页码文本框
+            	document.getElementById("current_page").value = curr_page ;
+            	//提交表单，实现带条件的分页查询
+            	document.forms[0].submit();
+            }
         </script>       
     </head>
     <body>
@@ -66,24 +73,22 @@
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">
-            <form action="" method="">
+            <form action="findAdmin.do" method="post">
+            	<input type="hidden" name="currentPage" id="current_page" />
                 <!--查询-->
                 <div class="search_add">
                     <div>
-                        模块：
-                        <select id="selModules" class="select_search">
-                            <option>全部</option>
-                            <option>角色管理</option>
-                            <option>管理员管理</option>
-                            <option>资费管理</option>
-                            <option>账务账号</option>
-                            <option>业务账号</option>
-                            <option>账单管理</option>
-                            <option>报表</option>
+                       	 模块：
+                        <select id="selModules" name="moduleId" class="select_search">
+                            <option value="">全部</option>
+                            <c:forEach items="${modules}" var="m">
+	                            <option value="${m.module_id}" <c:if test="${adminPage.moduleId==m.module_id}">selected</c:if> >${m.name}</option>
+                            </c:forEach>
                         </select>
                     </div>
-                    <div>角色：<input type="text" value="" class="text_search width200" /></div>
-                    <div><input type="button" value="搜索" class="btn_search"/></div>
+                    <div>角色：<input type="text" name="roleName" value="${adminPage.roleName}" class="text_search width200" /></div>
+                    <div><input type="button" value="搜索" class="btn_search" onclick="to_page(1)" /></div>
+                    
                     <input type="button" value="密码重置" class="btn_add" onclick="resetPwd();" />
                     <input type="button" value="增加" class="btn_add" onclick="location.href='toAddAdmin.do';" />
                 </div>
@@ -149,16 +154,16 @@
                 			<a href="javascript:;" >上一页</a>
                 		</c:when>
                 		<c:otherwise>
-                			<a href="findAdmin.do?currentPage=${radminPage.currentPage - 1}" >上一页</a>
+                			<a href="javascript:to_page(${adminPage.currentPage-1})" >上一页</a>
                 		</c:otherwise>
                 	</c:choose>
         	        <c:forEach begin="1" end="${adminPage.totalPage}" var="p">
         	        <c:choose>
         	        	<c:when test="${p == adminPage.currentPage }">
-		                    <a href="findAdmin.do?currentPage=${p}" class="current_page">${p}</a>
+		                    <a href="javascript:to_page(${p})" class="current_page">${p}</a>
         	        	</c:when>
         	        	<c:otherwise>
-		                    <a href="findAdmin.do?currentPage=${p}">${p}</a>
+		                    <a href="javascript:to_page(${p})">${p}</a>
         	        	</c:otherwise>
         	        </c:choose>
         	        </c:forEach>
@@ -168,7 +173,7 @@
 		                    <a href="javascript:;">下一页</a>
                 		</c:when>
                 		<c:otherwise>
-                			<a href="findAdmin.do?currentPage=${adminPage.currentPage + 1}" >下一页</a>
+                			<a href="javascript:to_page(${adminPage.currentPage+1})" >下一页</a>
                 		</c:otherwise>
                     </c:choose>
                 </div>                    

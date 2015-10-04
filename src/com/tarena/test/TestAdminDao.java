@@ -14,11 +14,13 @@ import com.tarena.entity.page.AdminPage;
 
 public class TestAdminDao {
 	
-//	@Test
+	@Test
 	public void testFindByPage() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);
-		System.out.println(dao.findByPage(new AdminPage()));
+		AdminPage page = new AdminPage();
+		page.setRoleName("管理");
+		System.out.println(dao.findByPage(page));
 	}
 	
 //	@Test
@@ -53,7 +55,7 @@ public class TestAdminDao {
 		dao.saveAdminRole(roles);
 	}
 	
-	@Test
+//	@Test
 	public void testFindById() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);

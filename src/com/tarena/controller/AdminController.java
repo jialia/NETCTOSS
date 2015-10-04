@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tarena.dao.AdminDao;
 import com.tarena.dao.RoleDao;
 import com.tarena.entity.Admin;
+import com.tarena.entity.Module;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.AdminPage;
 
@@ -30,6 +31,9 @@ public class AdminController {
 	
 	@RequestMapping("/findAdmin.do")
 	public String find(AdminPage page , Model model) {
+		List<Module> modules = roleDao.findAllModules();
+		model.addAttribute("modules", modules);
+		
 		List<Admin> admins = adminDao.findByPage(page);
 		model.addAttribute("admins", admins);
 		
