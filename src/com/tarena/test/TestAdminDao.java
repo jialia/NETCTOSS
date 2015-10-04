@@ -14,7 +14,7 @@ import com.tarena.entity.page.AdminPage;
 
 public class TestAdminDao {
 	
-	@Test
+//	@Test
 	public void testFindByPage() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);

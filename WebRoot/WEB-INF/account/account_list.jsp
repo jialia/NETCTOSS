@@ -78,7 +78,7 @@
             <ul id="menu">
                 <li><a href="../index.html" class="index_off"></a></li>
                 <li><a href="../role/findRole.do" class="role_off"></a></li>
-                <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
+                <li><a href="../admin/findAdmin.do" class="admin_off"></a></li>
                 <li><a href="../cost/findCost.do" class="fee_off"></a></li>
                 <li><a href="../account/findAccount.do" class="account_on"></a></li>
                 <li><a href="../service/findService.do" class="service_off"></a></li>
