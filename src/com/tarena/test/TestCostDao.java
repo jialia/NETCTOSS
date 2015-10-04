@@ -13,7 +13,7 @@ import com.tarena.entity.page.CostPage;
 
 
 /**
- * 测试CostDao
+ * 资费模块Dao测试类
  * 
  * @author Jsong
  */

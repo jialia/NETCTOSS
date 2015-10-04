@@ -1,8 +1,5 @@
 package com.tarena.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,6 +8,11 @@ import com.tarena.dao.RoleDao;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.RolePage;
 
+/**
+ * 角色模块Dao测试类
+ * 
+ * @author Jsong
+ */
 public class TestRoleDao {
 
 //	@Test

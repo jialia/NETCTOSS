@@ -1,10 +1,13 @@
 package com.tarena.entity.page;
 
+import java.io.Serializable;
+
 /**
  * 业务账号的分页组件
+ * 
  * @author Jsong
  */
-public class ServicePage extends Page {
+public class ServicePage extends Page implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

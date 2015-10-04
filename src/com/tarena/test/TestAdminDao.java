@@ -14,6 +14,11 @@ import com.tarena.dao.AdminDao;
 import com.tarena.entity.Admin;
 import com.tarena.entity.page.AdminPage;
 
+/**
+ * 管理员模块Dao测试类
+ * 
+ * @author Jsong
+ */
 public class TestAdminDao {
 	
 //	@Test

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.tarena.util.DateEditor;
 
+/**
+ * 控制器父类
+ * 
+ * @author Jsong
+ */
 public class BaseController {
 	
 	@InitBinder

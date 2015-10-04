@@ -178,4 +178,45 @@ public class Account implements Serializable {
 		this.last_login_ip = last_login_ip;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [account_id=" + account_id + ", recommender_id="
+				+ recommender_id + ", login_name=" + login_name
+				+ ", login_passwd=" + login_passwd + ", status=" + status
+				+ ", create_date=" + create_date + ", pause_date=" + pause_date
+				+ ", close_date=" + close_date + ", real_name=" + real_name
+				+ ", idcard_no=" + idcard_no + ", birthdate=" + birthdate
+				+ ", gender=" + gender + ", occupation=" + occupation
+				+ ", telephone=" + telephone + ", email=" + email
+				+ ", mailaddress=" + mailaddress + ", zipcode=" + zipcode
+				+ ", qq=" + qq + ", last_login_time=" + last_login_time
+				+ ", last_login_ip=" + last_login_ip + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((account_id == null) ? 0 : account_id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Account other = (Account) obj;
+		if (account_id == null) {
+			if (other.account_id != null)
+				return false;
+		} else if (!account_id.equals(other.account_id))
+			return false;
+		return true;
+	}
+
 }

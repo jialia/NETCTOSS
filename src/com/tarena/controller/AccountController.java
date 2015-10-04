@@ -17,7 +17,11 @@ import com.tarena.dao.AccountDao;
 import com.tarena.dao.ServiceDao;
 import com.tarena.entity.Account;
 import com.tarena.entity.page.AccountPage;
-
+/**
+ * 账务账号模块的业务控制器
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/account")
 @SessionAttributes("accountPage")
@@ -50,7 +54,6 @@ public class AccountController extends BaseController {
 		
 		result.put("success", true);
 		result.put("message", "开通成功");
-		
 		return result;
 	}
 	
@@ -77,7 +80,6 @@ public class AccountController extends BaseController {
 		
 		result.put("success", true);
 		result.put("message", "删除成功，且已删除其下属的业务账号！");
-		
 		return result;
 	}
 	

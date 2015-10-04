@@ -1,12 +1,20 @@
 package com.tarena.entity.page;
 
-public class AdminPage extends Page {
+import java.io.Serializable;
+
+/**
+ *	管理员的分页组件，用于封装账务 
+ * 	管理员的分页条件及搜索条件。
+ * 
+ * @author Jsong
+ */
+public class AdminPage extends Page implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer moduleId;
+	private Integer moduleId;		//模块id
 	
-	private String roleName;
+	private String roleName;		//角色名
 	
 	public AdminPage() {
 		super.setPageSize(10);
@@ -28,4 +36,10 @@ public class AdminPage extends Page {
 		this.roleName = roleName;
 	}
 
+	@Override
+	public String toString() {
+		return "AdminPage [moduleId=" + moduleId + ", roleName=" + roleName
+				+ "]";
+	}
+	
 }

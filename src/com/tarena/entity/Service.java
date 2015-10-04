@@ -97,4 +97,40 @@ public class Service implements Serializable {
 		this.cost_id = cost_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Service [service_id=" + service_id + ", account_id="
+				+ account_id + ", unix_host=" + unix_host + ", os_username="
+				+ os_username + ", login_password=" + login_password
+				+ ", status=" + status + ", create_date=" + create_date
+				+ ", pause_date=" + pause_date + ", close_date=" + close_date
+				+ ", cost_id=" + cost_id + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((account_id == null) ? 0 : account_id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Service other = (Service) obj;
+		if (account_id == null) {
+			if (other.account_id != null)
+				return false;
+		} else if (!account_id.equals(other.account_id))
+			return false;
+		return true;
+	}
+	
 }

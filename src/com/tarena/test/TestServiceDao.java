@@ -14,6 +14,11 @@ import com.tarena.dao.ServiceDao;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
 
+/**
+ * 业务账号模块Dao测试类
+ * 
+ * @author Jsong
+ */
 public class TestServiceDao {
 
 //	@Test

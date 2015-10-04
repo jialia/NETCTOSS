@@ -4,6 +4,11 @@ import java.beans.PropertyEditorSupport;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+/**
+ * 时间类型转换工具类
+ * 
+ * @author Jsong
+ */
 public class DateEditor extends PropertyEditorSupport {
 	
 	private String pattern = "yyyy-MM-dd";

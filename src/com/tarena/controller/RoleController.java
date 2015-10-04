@@ -17,6 +17,11 @@ import com.tarena.entity.Module;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.RolePage;
 
+/**
+ * 角色模块的业务控制器
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/role")
 @SessionAttributes("rolePage")

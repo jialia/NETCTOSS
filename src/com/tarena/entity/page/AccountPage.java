@@ -20,6 +20,9 @@ public class AccountPage extends Page implements Serializable {
 	private String login_name;	//登录名
 	
 	private String status;		//状态
+	
+	public AccountPage() {
+	}
 
 	public String getIdcard_no() {
 		return idcard_no;
@@ -51,6 +54,13 @@ public class AccountPage extends Page implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountPage [idcard_no=" + idcard_no + ", real_name="
+				+ real_name + ", login_name=" + login_name + ", status="
+				+ status + "]";
 	}
 	
 }

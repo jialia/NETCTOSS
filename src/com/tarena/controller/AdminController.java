@@ -21,6 +21,11 @@ import com.tarena.entity.Module;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.AdminPage;
 
+/**
+ * 管理员模块的业务控制器
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

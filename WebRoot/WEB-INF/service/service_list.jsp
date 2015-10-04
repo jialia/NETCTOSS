@@ -116,7 +116,7 @@
                             <option value="2" <c:if test="${servicePage.status==2}">selected</c:if> >删除</option>
                         </select>
                     </div>
-                    <div><input type="submit" value="搜索" class="btn_search" /></div>
+                    <div><input type="button" value="搜索" class="btn_search" onclick="to_page(1)" /></div>
                     <input type="button" value="增加" class="btn_add" onclick="location.href='toAddService.do';" />
                 </div>
                 </form>

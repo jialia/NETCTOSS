@@ -23,6 +23,11 @@ import com.tarena.entity.Cost;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
 
+/**
+ * 业务账号模块的业务控制器
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/service")
 @SessionAttributes("servicePage")

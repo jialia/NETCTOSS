@@ -10,6 +10,11 @@ import com.tarena.dao.AccountDao;
 import com.tarena.entity.Account;
 import com.tarena.entity.page.AccountPage;
 
+/**
+ * 账务账号模块Dao测试类
+ * 
+ * @author Jsong
+ */
 public class TestAccountDao {
 	
 //	@Test
