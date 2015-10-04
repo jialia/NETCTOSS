@@ -36,4 +36,11 @@ public interface AdminDao {
 	 */
 	public void saveAdminRole(Map<String, Object> roles);
 	
+	/**
+	 * 根据Id查询
+	 * @param id
+	 * @return
+	 */
+	public Admin findById(Integer id);
+	
 }

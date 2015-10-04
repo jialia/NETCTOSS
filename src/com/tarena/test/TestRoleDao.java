@@ -38,11 +38,18 @@ public class TestRoleDao {
 		dao.delete(1001);
 	}
 	
-	@Test
+//	@Test
 	public void testFindById() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		RoleDao dao = context.getBean(RoleDao.class);
 		System.out.println(dao.findById(200));
+	}
+	
+	@Test
+	public void testFindAllRole() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		RoleDao dao = context.getBean(RoleDao.class);
+		System.out.println(dao.findAllRole());
 	}
 
 }

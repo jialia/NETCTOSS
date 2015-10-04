@@ -50,11 +50,11 @@
         <div id="navi">                        
             <ul id="menu">
                 <li><a href="../index.html" class="index_off"></a></li>
-                <li><a href="../role/role_list.html" class="role_off"></a></li>
-                <li><a href="../admin/admin_list.html" class="admin_on"></a></li>
-                <li><a href="../fee/fee_list.html" class="fee_off"></a></li>
-                <li><a href="../account/account_list.html" class="account_off"></a></li>
-                <li><a href="../service/service_list.html" class="service_off"></a></li>
+                <li><a href="../role/findRole.do" class="role_off"></a></li>
+                <li><a href="../admin/findAdmin.do" class="admin_on"></a></li>
+                <li><a href="../cost/findCost.do" class="fee_off"></a></li>
+                <li><a href="../account/findAccount.do" class="account_off"></a></li>
+                <li><a href="../service/findService.do" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>
                 <li><a href="../user/user_info.html" class="information_off"></a></li>
@@ -83,7 +83,7 @@
                     <div>角色：<input type="text" value="" class="text_search width200" /></div>
                     <div><input type="button" value="搜索" class="btn_search"/></div>
                     <input type="button" value="密码重置" class="btn_add" onclick="resetPwd();" />
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='admin_add.html';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='toAddAdmin.do';" />
                 </div>
                 <!--删除和密码重置的操作提示-->
                 <div id="operate_result_info" class="operate_fail">

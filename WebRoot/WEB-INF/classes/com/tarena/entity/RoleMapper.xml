@@ -23,6 +23,11 @@
 			ofType="com.tarena.entity.Module" column="role_id" select="findModule" ></collection>
 	</resultMap>
 	
+	<!-- 查询全部的角色 -->
+	<select id="findAllRole" resultType="com.tarena.entity.Role">
+		SELECT * FROM role_info
+	</select>
+	
 	<!-- 查询总行数 -->
 	<select id="findRows" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM ROLE_INFO

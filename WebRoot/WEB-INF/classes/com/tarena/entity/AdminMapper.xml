@@ -10,7 +10,24 @@
 			SELECT * FROM (
 				SELECT  a.* , ROWNUM r  FROM(
 				SELECT  *  FROM  admin_info
-				ORDER BY admin_id
+				WHERE admin_id IN (
+					SELECT ai.admin_id FROM admin_info ai
+					LEFT JOIN  admin_role ar
+					ON ar.admin_id = ai.admin_id
+					LEFT JOIN role_info ri
+					ON ri.role_id = ar.role_id 
+					LEFT JOIN role_module rm
+					ON rm.role_id = ri.role_id
+					<where>
+						<if test="moduleId != null">
+							AND rm.module_id = #{moduleId,jdbcType=NUMERIC}
+						</if>
+						<if test="roleName != null &amp;&amp; roleName.length()>0">
+							AND ri.name LIKE '%||#{roleName}||%'
+						</if>
+					</where>
+					
+				) ORDER BY admin_id
 				) a
 			) WHERE r &lt; #{end} AND r &gt; #{begin}
 	</select>
@@ -34,13 +51,16 @@
 	 
 	 <!-- 添加管理员 -->
 	 <insert id="save" parameterType="com.tarena.entity.Admin" >
-	 	insert into admin_info values(admin_seq.nextval,#{admin_code,jdbcType=VARCHAR},
+	 	<selectKey keyProperty="admin_id" resultType="java.lang.Integer" order="BEFORE" >
+	 		SELECT admin_seq.nextval FROM dual
+	 	</selectKey>
+	 	insert into admin_info values(#{admin_id,jdbcType=NUMERIC},#{admin_code,jdbcType=VARCHAR},
 	 	#{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},
 	 	#{email,jdbcType=VARCHAR},#{enrolldate,jdbcType=TIMESTAMP})
 	 </insert>
 	
 	<!-- 添加管理员角色 -->
- 	<insert id="saveAdminrole" parameterType="java.util.Map" >
+ 	<insert id="saveAdminRole" parameterType="java.util.Map" >
 		insert into admin_role values(#{admin_id,jdbcType=NUMERIC},#{role_id,jdbcType=NUMERIC})
 	</insert>
 	

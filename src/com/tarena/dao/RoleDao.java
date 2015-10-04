@@ -19,6 +19,12 @@ public interface RoleDao {
 	public List<Role> findByPage(RolePage page);
 	
 	/**
+	 * 查询所有角色
+	 * @return
+	 */
+	public List<Role> findAllRole();
+	
+	/**
 	 * 查询总行数
 	 * @return
 	 */

@@ -1,6 +1,8 @@
 package com.tarena.test;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -26,7 +28,7 @@ public class TestAdminDao {
 		System.out.println(dao.findRows());
 	}
 	
-	@Test
+//	@Test
 	public void testAddAdmin() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);
@@ -39,6 +41,16 @@ public class TestAdminDao {
 		admin.setEnrolldate(new Timestamp(System.currentTimeMillis()));
 		dao.save(admin);
 		
+	}
+	
+	@Test
+	public void testAddAdminRole() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AdminDao dao = context.getBean(AdminDao.class);
+		Map<String, Object> roles = new HashMap<String, Object>();
+		roles.put("admin_id", 8020);
+		roles.put("role_id", 100);
+		dao.saveAdminRole(roles);
 	}
 
 }
