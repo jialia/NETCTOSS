@@ -1,6 +1,7 @@
 package com.tarena.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.dao.AdminDao;
 import com.tarena.dao.RoleDao;
@@ -22,6 +24,9 @@ import com.tarena.entity.page.AdminPage;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	//默认密码
+	private final static String DEFAULT_PASSWORD = "123";
 	
 	@Resource
 	private AdminDao adminDao;
@@ -102,6 +107,33 @@ public class AdminController {
 			}
 		}
 		return "redirect:findAdmin.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/resetPassword")
+	public Map<String, Object> updatePassword(@RequestParam("ids")String ids) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("ids", getIdList(ids));
+		param.put("password", DEFAULT_PASSWORD);
+		
+		adminDao.updatePassword(param);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("success", true);
+		result.put("message", "密码重置成功");
+		return result;
+	}
+	
+	private List<Integer> getIdList(String ids){
+		if (ids == null || ids.length() == 0) {
+			return null;
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		String[] idArray = ids.split(",");
+		for (String id : idArray) {
+			list.add(Integer.valueOf(id));
+		}
+		return list;
 	}
 
 }

@@ -1,16 +1,4 @@
-SELECT  *  FROM  admin_info
-WHERE admin_id IN (
-	SELECT ai.admin_id FROM admin_info ai
-	LEFT JOIN  admin_role ar
-	ON ar.admin_id = ai.admin_id
-	LEFT JOIN role_info ri
-	ON ri.role_id = ar.role_id 
-	LEFT JOIN role_module rm
-	ON rm.role_id = ri.role_id
-	
-) ORDER BY admin_id
-
-﻿grant debug connect session,debug any procedure to jsd1302;
+grant debug connect session,debug any procedure to jsd1302;
 
 ----------------------- 表相关的所有语句DDL，DML，TCL
 --资费信息表

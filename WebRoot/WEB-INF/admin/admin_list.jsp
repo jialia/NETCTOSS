@@ -8,6 +8,7 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+    	<script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
             //显示角色详细信息
             function showDetail(flag, a) {
@@ -20,8 +21,49 @@
             }
             //重置密码
             function resetPwd() {
-                alert("请至少选择一条数据！");
-                //document.getElementById("operate_result_info").style.display = "block";
+                var checkObjs = $(":checkbox[name='check_admin']:checked");
+                //判断是否选择了checkbox
+                if(checkObjs.length == 0){
+                	alert("请至少选择一个管理员");
+                	return;
+                }
+                
+                var r = window.confirm("确认要重置选中的管理员的密码吗？");
+                if (r) {
+	                //取得选中的checkbox
+    	            var ids = new Array();
+        	        for(var i=0;i<checkObjs.length;i++){
+            	    	var trObj = $(checkObjs[i]).parents().parents();
+                		var tdObj = $(trObj).children().eq(1);
+                		ids.push($(tdObj).text());
+               		}
+                	//提交请求更新
+                	$.post(
+                		"resetPassword.do",
+                		{"ids":ids.toString()},
+                		function(data){
+                			$("#operate_result_info").removeClass();
+                    		if(data.success){
+                    			//修改提示框样式
+        	            		$("#operate_result_info").addClass("operate_success");
+                    		} else {
+        	            		$("#operate_result_info").addClass("operate_fail");
+                    		}
+                    		$("#operate_msg").text(data.message);
+                    		$("#operate_result_info").show();
+                    		//推迟一段时间之后，关闭提示信息
+                    		setTimeout(function(){
+                    			if(data.success){
+                    				//成功时，刷新页面，自动关闭提示信息
+                    				window.location.href="findAdmin.do";
+                    			} else {
+                    				// 失败时关闭提示信息
+        		            		$("#operate_result_info").hide();
+                    			}
+                    		},2000);
+                		}
+                	);
+                }
             }
             //删除
             function deleteAdmin(id) {
@@ -95,7 +137,7 @@
                 <!--删除和密码重置的操作提示-->
                 <div id="operate_result_info" class="operate_fail">
                     <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
-                    <span>删除失败！数据并发错误。</span><!--密码重置失败！数据并发错误。-->
+                    <span id="operate_msg" >删除失败！数据并发错误。</span><!--密码重置失败！数据并发错误。-->
                 </div> 
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
@@ -117,7 +159,7 @@
                         
                         <c:forEach items="${admins}" var="admin" >
                         <tr>
-                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" name="check_admin" /></td>
                             <td>${admin.admin_id}</td>
                             <td>${admin.name}</td>
                             <td>${admin.admin_code}</td>

@@ -1,7 +1,9 @@
 package com.tarena.test;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -61,5 +63,18 @@ public class TestAdminDao {
 		AdminDao dao = context.getBean(AdminDao.class);
 		System.out.println(dao.findById(8021));
 	}
+	
+	@Test
+	public void testUpdatePassword() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AdminDao dao = context.getBean(AdminDao.class);
+		Map<String, Object> param = new HashMap<String, Object>();
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(6000);
+		ids.add(7000);
+		param.put("ids", ids);
+		param.put("password", "abc");
+		dao.updatePassword(param);
+ 	}
 
 }

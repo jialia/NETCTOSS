@@ -61,4 +61,13 @@ public interface AdminDao {
 	 */
 	public void update(Admin admin);
 	
+	/**
+	 * 更新密码
+	 * @param param
+	 * KEY		VALUE
+	 * ids		List<Integer>
+	 * password	String
+	 */
+	public void updatePassword(Map<String, Object> param);
+	
 }

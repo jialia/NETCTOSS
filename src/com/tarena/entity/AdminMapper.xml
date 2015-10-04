@@ -86,4 +86,10 @@
 	 	email=#{email,jdbcType=VARCHAR} WHERE admin_id = #{admin_id,jdbcType=NUMERIC}
 	</update>
 	
+	<!-- 更新密码 -->
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		UPDATE admin_info SET password=#{password,jdbcType=VARCHAR} WHERE admin_id IN 
+		<foreach collection="ids" open="(" close=")" separator="," item="id" >#{id}</foreach>
+	</update>
+	
 </mapper>
