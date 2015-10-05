@@ -66,5 +66,13 @@
 			<bean class="com.tarena.interceptor.CheckLoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<!-- 注册获取当前模块拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.tarena.interceptor.CurrentModuleInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

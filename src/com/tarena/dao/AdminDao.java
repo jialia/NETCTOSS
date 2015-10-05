@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tarena.annotation.MyBatisRepository;
 import com.tarena.entity.Admin;
+import com.tarena.entity.Module;
 import com.tarena.entity.page.AdminPage;
 
 @MyBatisRepository
@@ -76,5 +77,12 @@ public interface AdminDao {
 	 * @return
 	 */
 	public Admin findByCode(String adminCode);
+	
+	/**
+	 * 根据管理员Id查询其可访问的模块
+	 * @param adminId
+	 * @return
+	 */
+	public List<Module> findModulesByAdmin(Integer adminId);
 	
 }

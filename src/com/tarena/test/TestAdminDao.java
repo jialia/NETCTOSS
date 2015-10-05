@@ -69,7 +69,7 @@ public class TestAdminDao {
 		System.out.println(dao.findById(8021));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdatePassword() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AdminDao dao = context.getBean(AdminDao.class);
@@ -81,5 +81,13 @@ public class TestAdminDao {
 		param.put("password", "abc");
 		dao.updatePassword(param);
  	}
+	
+	@Test
+	public void testFindModulesByAdmin() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AdminDao dao = context.getBean(AdminDao.class);
+		System.out.println(dao.findModulesByAdmin(2000));
+		
+	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,8 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.dao.AdminDao;
 import com.tarena.entity.Admin;
+import com.tarena.entity.Module;
 import com.tarena.util.ImageUtil;
 
+/**
+ * 登陆模块的业务控制器
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {
@@ -62,6 +69,8 @@ public class LoginController extends BaseController {
 			result.put("flag", SUCCESS);
 			//将管理员信息存入Session，用于后续检查
 			session.setAttribute("admin", admin);
+			List<Module> list = adminDao.findModulesByAdmin(admin.getAdmin_id());
+			session.setAttribute("allModules", list);
 		}
 		return result;
 	}

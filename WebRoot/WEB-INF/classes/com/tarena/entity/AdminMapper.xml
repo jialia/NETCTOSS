@@ -97,4 +97,16 @@
 		select * from admin_info where admin_code = #{adminCode}
 	</select>
 	
+	<!-- 根据管理员Id查询其可访问的模块 -->
+	<select id="findModulesByAdmin" parameterType="java.lang.Integer" 
+			resultType="com.tarena.entity.Module">
+		SELECT * FROM module_info WHERE module_id in (
+			SELECT rm.module_id FROM admin_info ai
+			INNER JOIN admin_role ar ON ar.admin_id = ai.admin_id
+			INNER JOIN role_info ri ON ri.role_id = ar.role_id
+			INNER JOIN role_module rm ON rm.role_id = ri.role_id
+			WHERE ai.admin_id = #{adminId}
+		) ORDER BY module_id
+	</select>
+	
 </mapper>

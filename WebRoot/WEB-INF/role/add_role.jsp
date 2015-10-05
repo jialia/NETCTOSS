@@ -31,18 +31,7 @@
         <!--Logo区域结束-->
         <!--导航区域开始-->
         <div id="navi">
-            <ul id="menu">
-                <li><a href="../login/toIndex.do" class="index_off"></a></li>
-                <li><a href="../role/findRole.do" class="role_on"></a></li>
-                <li><a href="../admin/findAdmin.do" class="admin_off"></a></li>
-                <li><a href="../cost/findCost.do" class="fee_off"></a></li>
-                <li><a href="../account/findAccount.do" class="account_off"></a></li>
-                <li><a href="../service/findService.do" class="service_off"></a></li>
-                <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
-                <li><a href="../report/report_list.html" class="report_off"></a></li>
-                <li><a href="../user/user_info.html" class="information_off"></a></li>
-                <li><a href="../user/user_modi_pwd.html" class="password_off"></a></li>
-            </ul>
+            <jsp:include page="/WEB-INF/main/menu.jsp" />
         </div>
         <!--导航区域结束-->
         <!--主要区域开始-->
