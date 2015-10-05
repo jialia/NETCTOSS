@@ -7,11 +7,35 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
             function deleteRole(id) {
                 var r = window.confirm("确定要删除此角色吗？");
                 if(r) {
-                	window.location.href="deleteRole.do?id="+id;
+                	$.post(
+                		"deleteRole.do",
+                		{"id":id},
+                		function(data){
+    	            		$("#operate_result_info").removeClass();
+                			if(data.success){
+                				//修改提示框样式
+    	            			$("#operate_result_info").addClass("operate_success");
+                			} else {
+    	            			$("#operate_result_info").addClass("operate_fail");
+                			}
+                			$("#operate_msg").text(data.message);
+                			$("#operate_result_info").show();
+                			//推迟一段时间之后，关闭提示信息
+                			setTimeout(function(){
+                				if(data.success){
+                					//成功时，刷新页面，自动关闭提示信息
+                					window.location.href="findRole.do";
+                				} else {
+                					// 失败时关闭提示信息
+    		            			$("#operate_result_info").hide();
+                				}
+                			},2000);
+                	});
                 }
             }
         </script>
@@ -49,7 +73,7 @@
                 <!--删除的操作提示-->
                 <div id="operate_result_info" class="operate_success">
                     <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
-                    删除成功！
+                  	<span id="operate_msg" >删除成功！</span>
                 </div> <!--删除错误！该角色被使用，不能删除。-->
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">                      

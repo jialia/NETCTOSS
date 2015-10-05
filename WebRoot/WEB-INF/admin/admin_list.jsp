@@ -69,7 +69,30 @@
             function deleteAdmin(id) {
                 var r = window.confirm("确定要删除此管理员吗？");
                 if(r){
-                	window.location.href="deleteAdmin.do?id=" + id;
+                	$.post(
+                    		"deleteAdmin.do",
+                    		{"id":id},
+                    		function(data){
+        	            		$("#operate_result_info").removeClass();
+                    			if(data.success){
+                    				//修改提示框样式
+        	            			$("#operate_result_info").addClass("operate_success");
+                    			} else {
+        	            			$("#operate_result_info").addClass("operate_fail");
+                    			}
+                    			$("#operate_msg").text(data.message);
+                    			$("#operate_result_info").show();
+                    			//推迟一段时间之后，关闭提示信息
+                    			setTimeout(function(){
+                    				if(data.success){
+                    					//成功时，刷新页面，自动关闭提示信息
+                    					window.location.href="findAdmin.do";
+                    				} else {
+                    					// 失败时关闭提示信息
+        		            			$("#operate_result_info").hide();
+                    				}
+                    			},2000);
+                    	});
                 }
             }
             //全选

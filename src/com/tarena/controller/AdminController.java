@@ -79,11 +79,16 @@ public class AdminController {
 		return "redirect:findAdmin.do";
 	}
 
+	@ResponseBody
 	@RequestMapping("/deleteAdmin.do")
-	public String delete(@RequestParam("id")int id,Model model) {
+	public Map<String, Object> delete(@RequestParam("id")int id,Model model) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		adminDao.deleteAdminRole(id);
 		adminDao.delete(id);
-		return "redirect:findAdmin.do";
+		
+		result.put("success", true);
+		result.put("message", "删除成功");
+		return result;
 	}
 	
 	@RequestMapping("/toUpdateAdmin")

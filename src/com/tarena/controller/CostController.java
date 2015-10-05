@@ -2,7 +2,9 @@
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.dao.CostDao;
 import com.tarena.entity.Cost;
@@ -76,10 +79,15 @@ public class CostController implements Serializable{
 		return "redirect:findCost.do";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/deleteCost.do")
-	public String delete(@RequestParam("id") int id) {
+	public Map<String, Object> delete(@RequestParam("id") int id) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		dao.delete(id);
-		return "redirect:findCost.do";
+		
+		result.put("success", true);
+		result.put("message", "删除成功");
+		return result;
 	}
 	
 	@RequestMapping("/detailCost.do")

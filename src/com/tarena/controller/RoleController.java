@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tarena.dao.RoleDao;
@@ -64,11 +65,16 @@ public class RoleController extends BaseController {
 		return "redirect:findRole.do";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/deleteRole.do")
-	public String delete(@RequestParam("id")int id) {
+	public Map<String, Object> delete(@RequestParam("id")int id) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		roleDao.deleteroleModule(id);
 		roleDao.delete(id);
-		return "redirect:findRole.do";
+		
+		result.put("success", true);
+		result.put("message", "删除成功");
+		return result;
 	}
 	
 	@RequestMapping("/toUpdateRole.do")

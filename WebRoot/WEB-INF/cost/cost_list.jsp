@@ -8,6 +8,8 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" />
+        
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
             //排序按钮的点击事件
             function sortBaseDuration(btnObj) {
@@ -44,9 +46,31 @@
             function deleteFee(id) {
                 var r = window.confirm("确定要删除此资费吗？");
                 if(r){
-                	window.location.href = "deleteCost.do?id="+id;
+                	$.post(
+                    		"deleteCost.do",
+                    		{"id":id},
+                    		function(data){
+        	            		$("#operate_result_info").removeClass();
+                    			if(data.success){
+                    				//修改提示框样式
+        	            			$("#operate_result_info").addClass("operate_success");
+                    			} else {
+        	            			$("#operate_result_info").addClass("operate_fail");
+                    			}
+                    			$("#operate_msg").text(data.message);
+                    			$("#operate_result_info").show();
+                    			//推迟一段时间之后，关闭提示信息
+                    			setTimeout(function(){
+                    				if(data.success){
+                    					//成功时，刷新页面，自动关闭提示信息
+                    					window.location.href="findCost.do";
+                    				} else {
+                    					// 失败时关闭提示信息
+        		            			$("#operate_result_info").hide();
+                    				}
+                    			},2000);
+                    	});
                 }
-                // document.getElementById("operate_result_info").style.display = "block";
             }
         </script>        
     </head>
@@ -97,7 +121,7 @@
                 <!--启用操作的操作提示-->
                 <div id="operate_result_info" class="operate_success">
                     <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
-                    删除成功！
+					<span id="operate_msg" >删除成功！</span>
                 </div>    
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
