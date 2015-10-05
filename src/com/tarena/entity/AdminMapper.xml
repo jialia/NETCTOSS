@@ -92,4 +92,9 @@
 		<foreach collection="ids" open="(" close=")" separator="," item="id" >#{id}</foreach>
 	</update>
 	
+	<!-- 根据账号查询管理员 -->
+	<select id="findByCode" parameterType="java.lang.String" resultType="com.tarena.entity.Admin" >
+		select * from admin_info where admin_code = #{adminCode}
+	</select>
+	
 </mapper>

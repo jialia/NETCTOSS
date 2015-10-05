@@ -70,4 +70,11 @@ public interface AdminDao {
 	 */
 	public void updatePassword(Map<String, Object> param);
 	
+	/**
+	 * 根据账号查询管理员
+	 * @param adminCode
+	 * @return
+	 */
+	public Admin findByCode(String adminCode);
+	
 }

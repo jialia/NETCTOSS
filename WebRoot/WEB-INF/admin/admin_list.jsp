@@ -100,7 +100,7 @@
         <!--导航区域开始-->
         <div id="navi">                        
             <ul id="menu">
-                <li><a href="../index.html" class="index_off"></a></li>
+                <li><a href="../login/toIndex.do" class="index_off"></a></li>
                 <li><a href="../role/findRole.do" class="role_off"></a></li>
                 <li><a href="../admin/findAdmin.do" class="admin_on"></a></li>
                 <li><a href="../cost/findCost.do" class="fee_off"></a></li>
