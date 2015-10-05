@@ -21,7 +21,12 @@
 					$("#password_msg").text("3至30长度的字母、数字和下划线");
 					return;
 				}
-				
+				//验证验证码是否为空
+				var code = $("#code").val();
+				if(code == ""){
+					$("#code_msg").text("请输入验证码");
+					return;
+				}
 				$.post(
 					"checkLogin.do",
 					$("#myform").serialize(),
@@ -30,15 +35,23 @@
 							$("#admin_code_msg").text("账号不存在");
 						} else if(data.flag == 2){
 							$("#password_msg").text("密码错误");
+						}else if(data.flag == 3){
+							$("#code_msg").text("验证码错误");
 						} else {
 							window.location.href="toIndex.do";
 						}
+						change();
 					});
 			}
 			
 			//光标切入文本框时，重置其提示信息
 			function set_msg(txt_id){
 				$("#"+txt_id).text("");
+			}
+			
+			//刷新验证码图片
+			function change(){
+				$("#code_image").attr("src","createImage.do?date="+new Date().getTime());
 			}
 		</script>
     </head>
@@ -58,21 +71,16 @@
                 </tr>
                 <tr>
                     <td class="login_info">验证码：</td>
-                    <td class="width70"><input name="" type="text" class="width70" /></td>
-                    <td><img src="../images/valicode.jpg" alt="验证码" title="点击更换" /></td>  
-                    <!-- 
-                    <td><span class="required">验证码错误</span></td>              
-                     -->
+                    <td class="width70"><input id="code" name="code" type="text" class="width70" onfocus="set_msg('code_msg')" /></td>
+                    <td><img src="createImage.do" id="code_image" alt="验证码" title="点击更换" onclick="change()" /></td>  
+                    <td><span id="code_msg" class="required"></span></td>              
                 </tr>            
                 <tr>
                     <td></td>
                     <td class="login_button" colspan="2">
                         <a href="javaScript:check_login()"><img src="../images/login_btn.png" /></a>
                     </td>    
-                    
-                    <!-- 
-                     <td><span class="required">用户名或密码错误，请重试</span></td>                
-                     -->
+                  
                 </tr>
             </table>
         </form>

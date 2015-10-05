@@ -1,9 +1,15 @@
 package com.tarena.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.dao.AdminDao;
 import com.tarena.entity.Admin;
+import com.tarena.util.ImageUtil;
 
 @Controller
 @RequestMapping("/login")
@@ -37,9 +44,15 @@ public class LoginController extends BaseController {
 	@RequestMapping("/checkLogin.do")
 	public Map<String, Object> checkLogin(
 			@RequestParam("adminCode")String adminCode ,
-			@RequestParam("password")String password) {
+			@RequestParam("password")String password,
+			@RequestParam("code")String code,
+			HttpSession session ) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+		String imageCode = (String) session.getAttribute("imageCode");
+		if (!code.equalsIgnoreCase(imageCode)) {
+			result.put("flag", IMAGE_CODE_ERROR);
+			return result;
+		}
 		Admin admin = adminDao.findByCode(adminCode);
 		if (admin == null) {
 			result.put("flag", ADMIN_CODE_ERROR);
@@ -54,6 +67,22 @@ public class LoginController extends BaseController {
 	@RequestMapping("/toIndex.do")
 	public String toIndex(){
 		return "main/index";
+	}
+	
+	@RequestMapping("/createImage.do")
+	public void createImage(HttpServletResponse response , HttpSession session)
+			throws IOException {
+		// 创建图片
+		Map<String, BufferedImage> map = ImageUtil.createImage();
+		// 获取图片
+		String code = map.keySet().iterator().next();
+		session.setAttribute("imageCode", code);
+		BufferedImage image = map.get(code);
+		// 输出图片
+		response.setContentType("image/jpeg");
+		OutputStream out = response.getOutputStream();
+		ImageIO.write(image, "jpeg", out);
+		out.close();
 	}
 
 }
