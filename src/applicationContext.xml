@@ -58,5 +58,13 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>		
 	
+	<!-- 注册登陆检查拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/login/*" />
+			<bean class="com.tarena.interceptor.CheckLoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

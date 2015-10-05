@@ -60,6 +60,8 @@ public class LoginController extends BaseController {
 			result.put("flag", PASSWORD_ERROR);
 		} else {
 			result.put("flag", SUCCESS);
+			//将管理员信息存入Session，用于后续检查
+			session.setAttribute("admin", admin);
 		}
 		return result;
 	}
