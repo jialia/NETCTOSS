@@ -72,72 +72,28 @@
                         <th class="width100">支付状态</th>                                                        
                         <th class="width50"></th>
                     </tr>
+                    <c:forEach items="${bills}" var="b">
                     <tr>
-                        <td>1</td>
-                        <td>张三</td>
-                        <td>230102197902137862</td>
-                        <td>admin1</td>
-                        <td>543.45</td>
-                        <td>2012年8月</td>
-                        <td></td>
-                        <td>未支付</td>                            
+                        <td>${b.bill_id}</td>
+                        <td>${b.real_name}</td>
+                        <td>${b.idcard_no}</td>
+                        <td>${b.login_name}</td>
+                        <td>${b.cost}</td>
+                        <td>${b.bill_month}</td>
+                        <c:choose>
+                        	<c:when test="${b.payment_mode == 0}"><td>现金</td></c:when>
+                        	<c:when test="${b.payment_mode == 1}"><td>信用卡</td></c:when>
+                        	<c:when test="${b.payment_mode == 2}"><td>网上银行</td></c:when>
+                        	<c:when test="${b.payment_mode == 3}"><td>支付宝</td></c:when>
+                        	<c:otherwise><td>其他方式</td></c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                        	<c:when test="${b.pay_state == 0}"><td>未支付</td></c:when>
+                        	<c:otherwise><td>已支付</td></c:otherwise>
+                        </c:choose>
                         <td><a href="bill_item.html" title="账单明细">明细</a></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>李四</td>
-                        <td>230102197901111111</td>
-                        <td>admin2</td>
-                        <td>843.00</td>
-                        <td>2012年9月</td>
-                        <td>现金</td>
-                        <td>已支付</td>                            
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>王五</td>
-                        <td>230111111111111111</td>
-                        <td>admin3</td>
-                        <td>12.00</td>
-                        <td>2012年10月</td>
-                        <td></td>
-                        <td>未支付</td>                            
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>张三</td>
-                        <td>230102197902137862</td>
-                        <td>admin1</td>
-                        <td>543.45</td>
-                        <td>2012年8月</td>
-                        <td></td>
-                        <td>未支付</td>                            
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>李四</td>
-                        <td>230102197901111111</td>
-                        <td>admin2</td>
-                        <td>843.00</td>
-                        <td>2012年9月</td>
-                        <td>现金</td>
-                        <td>已支付</td>                            
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>王五</td>
-                        <td>230111111111111111</td>
-                        <td>admin3</td>
-                        <td>12.00</td>
-                        <td>2012年10月</td>
-                        <td></td>
-                        <td>未支付</td>                            
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
-                    </tr>
+                    </c:forEach>
                 </table>
                 
                 <p>业务说明：<br />

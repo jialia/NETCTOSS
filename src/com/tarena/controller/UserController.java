@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tarena.dao.AdminDao;
 import com.tarena.entity.Admin;
 
+/**
+ * 用户信息模块的业务控制器
+ * 		包含用户信息、密码更改两个模块
+ * 
+ * @author Jsong
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {

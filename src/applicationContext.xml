@@ -19,35 +19,27 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	
 	<!-- 配置数据源 -->
-	<bean id="ds" 
-		class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="url" 
-			value="jdbc:oracle:thin:@localhost:1521:orcl"/>
-		<property name="driverClassName" 
-			value="oracle.jdbc.OracleDriver"/>
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
 		<property name="username" value="scott"/>
 		<property name="password" value="root"/>
 	</bean>
 	
 	<!-- 配置SqlSessionFactory -->
-	<bean id="sqlSessionFactory" 
-		class="org.mybatis.spring.SqlSessionFactoryBean">  
-      <property name="dataSource" ref="ds" />
-      <property name="mapperLocations" 
-      	value="classpath:com/tarena/entity/*.xml"/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+		<property name="dataSource" ref="ds" />
+		<property name="mapperLocations" value="classpath:com/tarena/entity/*.xml"/>
     </bean>
     
     <!-- 配置MyBatis注解 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
        <property name="basePackage" value="com.tarena.dao" />
-       <property name="annotationClass" 
-           value="com.tarena.annotation.MyBatisRepository"/>
+       <property name="annotationClass" value="com.tarena.annotation.MyBatisRepository"/>
 	</bean>
 	
 	<!-- 开启注解扫描 -->
-	<context:component-scan 
-		base-package="com.tarena" />
+	<context:component-scan base-package="com.tarena" />
 
 	<!-- 支持@RequestMapping请求和Controller映射 -->
 	<mvc:annotation-driven />

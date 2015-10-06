@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.tarena.dao.BillDao">
+
+	<select id="findByPage" parameterType="com.tarena.entity.page.BillPage" 
+		resultType="com.tarena.entity.Bill">
+		SELECT * FROM (
+		SELECT A.* ,ROWNUM R FROM (
+			SELECT b.*, acc.real_name , acc.idcard_no , acc.login_name FROM bill b 
+			LEFT JOIN account acc ON b.account_id  = acc.account_id
+			<where>
+				<if test="idcard_no != null &amp;&amp; idcard_no.length()>0">
+					AND idcard_no = #{idcard_no,jdbcType=VARCHAR}
+				</if>
+				<if test="real_name != null &amp;&amp; real_name.length()>0">
+					AND real_name = #{real_name,jdbcType=VARCHAR}
+				</if>
+				<if test="login_name != null &amp;&amp; login_name.length()>0">
+					AND login_name = #{login_name,jdbcType=VARCHAR}
+				</if>
+				<if test="month != null &amp;&amp; month>0 ">
+					AND bill_month = #{bill_month,jdbcType=NUMERIC}
+				</if>
+			</where>
+			ORDER BY bill_id
+		) A ) WHERE R &lt; #{end} and r>#{begin}
+	</select>
+
+
+</mapper>

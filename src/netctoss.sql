@@ -16,8 +16,7 @@ create table cost(
   	startime 		date,
 		cost_type		char(1) constraint cost_type_ck 
 							check (cost_type in  (1,2,3))
-  );
-
+  ); 
 
 INSERT INTO COST VALUES (1,'5.9元套餐',20,5.9,0.4,0,'5.9元20小时/月,超出部分0.4元/时',DEFAULT,DEFAULT,NULL);
 INSERT INTO COST VALUES (2,'6.9元套餐',40,6.9,0.3,0,'6.9元40小时/月,超出部分0.3元/时',DEFAULT,DEFAULT,NULL);
