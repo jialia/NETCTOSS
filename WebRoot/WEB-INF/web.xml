@@ -42,6 +42,11 @@
 	<filter-mapping>
 	    <filter-name>encodingFilter</filter-name>
 	    <url-pattern>*.do</url-pattern>
-	</filter-mapping>     
+	</filter-mapping>  
+	
+	<!-- 使用listener,在请求开始时，将Request放入Spring容器中 -->   
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
   
 </web-app>
