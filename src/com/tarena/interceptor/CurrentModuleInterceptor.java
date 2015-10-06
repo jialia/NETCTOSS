@@ -41,6 +41,15 @@ public class CurrentModuleInterceptor implements HandlerInterceptor {
 			currentModule = 4;
 		}else if (url.contains("service")) {
 			currentModule = 5;
+		}else if (url.contains("bill")) {
+			currentModule = 6;
+		}else if (url.contains("report")) {
+			currentModule = 7;
+		}
+		else if (url.contains("UserInfo")) {
+			currentModule = -1;
+		}else if (url.contains("UserPassword")) {
+			currentModule = -2;
 		}
 		request.getSession().setAttribute("currentModule", currentModule);
 		return true;

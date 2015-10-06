@@ -74,5 +74,14 @@
 			<bean class="com.tarena.interceptor.CurrentModuleInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<!-- 模块检测拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/login/*" />
+			<bean class="com.tarena.interceptor.CheckModuleInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

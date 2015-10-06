@@ -95,5 +95,10 @@ public class LoginController extends BaseController {
 		ImageIO.write(image, "jpeg", out);
 		out.close();
 	}
+	
+	@RequestMapping("noPower.do")
+	public String toNoPower() {
+		return "main/nopower";
+	}
 
 }

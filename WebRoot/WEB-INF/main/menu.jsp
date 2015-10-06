@@ -52,21 +52,31 @@
 		</c:if>
 		<c:if test="${m.module_id == 6}">
 			<c:if test="${currentModule == 6}">
-				<li><a href="bill/bill_list.html" class="bill_on"></a></li>
+				<li><a href="${base}bill/findBill.do" class="bill_on"></a></li>
 			</c:if>
 			<c:if test="${currentModule != 6}">
-				<li><a href="bill/bill_list.html" class="bill_off"></a></li>
+				<li><a href="${base}bill/findBill.do" class="bill_off"></a></li>
 			</c:if>
 		</c:if>
 		<c:if test="${m.module_id == 7}">
 			<c:if test="${currentModule == 7}">
-				<li><a href="report/report_list.html" class="report_on"></a></li>
+				<li><a href="${base}report/findReport.do" class="report_on"></a></li>
 			</c:if>
 			<c:if test="${currentModule != 7}">
-				<li><a href="report/report_list.html" class="report_off"></a></li>
+				<li><a href="${base}report/findReport.do" class="report_off"></a></li>
 			</c:if>
 		</c:if>
 	</c:forEach>
-	<li><a href="${base}user/toUserInfo.do" class="information_off"></a></li>
-	<li><a href="${base}user/toUserPassword.do" class="password_off"></a></li>
+	<c:if test="${currentModule == -1}">
+		<li><a href="${base}user/toUserInfo.do" class="information_on"></a></li>
+	</c:if>
+	<c:if test="${currentModule != -1}">
+		<li><a href="${base}user/toUserInfo.do" class="information_off"></a></li>
+	</c:if>
+	<c:if test="${currentModule == -2}">
+		<li><a href="${base}user/toUserPassword.do" class="password_on"></a></li>
+	</c:if>
+	<c:if test="${currentModule != -2}">
+		<li><a href="${base}user/toUserPassword.do" class="password_off"></a></li>
+	</c:if>
 </ul>
