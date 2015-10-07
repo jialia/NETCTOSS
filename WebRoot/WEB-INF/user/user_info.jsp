@@ -8,19 +8,65 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" />
-        <script language="javascript" type="text/javascript">
-            //保存成功的提示信息
-            function showResult() {
-                showResultDiv(true);
-                window.setTimeout("showResultDiv(false);", 3000);
-            }
-            function showResultDiv(flag) {
-                var divResult = document.getElementById("save_result_info");
-                if (flag)
-                    divResult.style.display = "block";
-                else
-                    divResult.style.display = "none";
-            }
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
+        <script language="javascript" type="text/javascript" >
+			function check_login(){
+				//验证用户姓名
+				var namePatt = new RegExp(/^[\u4E00-\u9FA5A-Za-z0-9]{1,20}$/);
+				var name = $("#name").val();
+				if(!namePatt.test(name)){
+					$("#name_msg").addClass("error_msg");
+					return;
+				}
+				
+				//验证手机号
+				var telephonePatt = new RegExp(/^\d{7,11}$/);
+				var telephone = $("#telephone").val();
+				if(!telephonePatt.test(telephone)){
+					$("#telephone_msg").addClass("error_msg");
+					return;
+				}
+				
+				//验证邮箱
+				var emailPatt = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
+				var email = $("#email").val();
+				if(!emailPatt.test(email)){
+					$("#email_msg").addClass("error_msg");
+					return;
+				}
+				
+				$.post(
+                	"updateUserInfo.do",
+                	$("#myform").serialize(),
+                	function(data){
+    	            	$("#save_result_info").removeClass();
+                		if(data.success){
+                			//修改提示框样式
+    	            		$("#save_result_info").addClass("save_success");
+                		} else {
+    	            		$("#save_result_info").addClass("save_fail");
+                		}
+                		$("#save_result_info").text(data.message);
+                		$("#save_result_info").show();
+                		//推迟一段时间之后，关闭提示信息
+                		setTimeout(function(){
+                			if(data.success){
+                				//成功时，刷新页面，自动关闭提示信息
+                				window.location.href="../login/toIndex.do";
+                			} else {
+                				// 失败时关闭提示信息
+    		            		$("#save_result_info").hide();
+                			}
+                		},2000);
+                });
+				
+			}
+			
+			//光标切入文本框时，重置其提示信息
+			function set_msg(txt_id,className){
+				$("#"+txt_id).removeClass();
+				$("#"+txt_id).addClass(className);;
+			}
         </script>
     </head>
     <body>
@@ -38,8 +84,8 @@
         <!--主要区域开始-->
         <div id="main">            
             <!--保存操作后的提示信息：成功或者失败-->
-            <div id="save_result_info" class="save_success">保存成功！</div><!--保存失败，数据并发错误！-->
-            <form action="updateUserInfo.do" method="post" class="main_form">
+            <div id="save_result_info" class="save_success">保存成功！</div>
+            <form id="myform" action="updateUserInfo.do" method="post" class="main_form">
             	<input type="hidden" name="admin_id" value="${admin.admin_id}" />
                 <div class="text_info clearfix"><span>管理员账号：</span></div>
                 <div class="input_info"><input type="text" readonly="readonly" class="readonly" value="${user.admin_id}" /></div>
@@ -49,24 +95,24 @@
                 </div>
                 <div class="text_info clearfix"><span>姓名：</span></div>
                 <div class="input_info">
-                    <input type="text" name="name" value="${user.name}" />
+                    <input type="text" id="name" name="name" value="${user.name}" onfocus="set_msg('name_msg','validate_msg_long')" />
                     <span class="required">*</span>
-                    <div class="validate_msg_long error_msg">20长度以内的汉字、字母的组合</div>
+                    <div id="name_msg" class="validate_msg_long">20长度以内的汉字、字母的组合</div>
                 </div>
                 <div class="text_info clearfix"><span>电话：</span></div>
                 <div class="input_info">
-                    <input type="text" name="telephone" class="width200" value="${user.telephone}" />
-                    <div class="validate_msg_medium">电话号码格式：手机或固话</div>
+                    <input type="text" id="telephone" name="telephone" class="width200" value="${user.telephone}" onfocus="set_msg('telephone_msg','validate_msg_medium')" />
+                    <div id="telephone_msg" class="validate_msg_medium">电话号码格式：手机或固话</div>
                 </div>
                 <div class="text_info clearfix"><span>Email：</span></div>
                 <div class="input_info">
-                    <input type="text" name="email" class="width200" value="${user.email}" />
-                    <div class="validate_msg_medium">50长度以内，符合 email 格式</div>
+                    <input type="text" id="email" name="email" class="width200" value="${user.email}" onfocus="set_msg('email_msg','validate_msg_medium')" />
+                    <div id="email_msg" class="validate_msg_medium">50长度以内，符合 email 格式</div>
                 </div>
                 <div class="text_info clearfix"><span>创建时间：</span></div>
                 <div class="input_info"><input type="text" readonly="readonly" class="readonly" value="<fmt:formatDate value="${user.enrolldate}" pattern="yyyy-MM-dd" />"/></div>
                 <div class="button_info clearfix">
-                    <input type="submit" value="保存" class="btn_save"/>
+                    <input type="button" value="保存" class="btn_save" onclick="check_login()" />
                     <input type="button" value="取消" class="btn_save" />
                 </div>
             </form>  

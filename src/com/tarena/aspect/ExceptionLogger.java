@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -33,6 +34,7 @@ public class ExceptionLogger {
 		} catch (Throwable e) {
 			e.printStackTrace();
 			//记录异常日志
+			Logger logger = Logger.getLogger(this.getClass());
 			Admin admin = (Admin) request.getSession().getAttribute("admin");
 			if (admin != null) {
 				String name = admin.getName();
@@ -40,12 +42,17 @@ public class ExceptionLogger {
 				String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 				String className = p.getTarget().getClass().getName();
 				String method = p.getSignature().getName();
-				String msg = "用户["+name+"] IP["+ip+"] 在"+now+"，执行"+className+"."+method+"()时，发生如下异常:";
+				StringBuffer msg = new StringBuffer();
+				msg.append("用户[").append(name).append("],");
+				msg.append("IP[").append(ip).append("],");
+				msg.append("在[").append(now).append("],");
+				msg.append("执行[").append(className).append(".").append(method).append("()]时，发生如下异常:\n");
+				
 				StackTraceElement[] elems = e.getStackTrace();
 				for (StackTraceElement elem : elems) {
-					msg += "\t" + elem.toString();
+					msg.append("\t"+elem.toString()+"\n");
 				}
-				System.out.println(msg);
+				logger.error(msg.toString());
 			}
 			throw new RuntimeException(e);
 		}

@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.tarena.dao.AccountDao;
 import com.tarena.dao.ServiceDao;
+import com.tarena.entity.Account;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
 
@@ -61,9 +62,9 @@ public class TestServiceDao {
 		BigDecimal b = (BigDecimal) service.get("ACCOUNT_ID");
 		int i = b.intValue();
 		System.out.println(i);
-//		Integer account_id = Integer.parseInt(service.get("ACCOUNT_ID").toString());
-//		Account account = accountDao.findById(account_id);
-//		System.out.println(account.getStatus().equals("0"));
+		Integer account_id = Integer.parseInt(service.get("ACCOUNT_ID").toString());
+		Account account = accountDao.findById(account_id);
+		System.out.println(account.getStatus().equals("0"));
 	}
 	
 //	@Test

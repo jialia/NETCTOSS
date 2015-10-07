@@ -1,11 +1,15 @@
 package com.tarena.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.dao.AdminDao;
 import com.tarena.entity.Admin;
@@ -31,13 +35,18 @@ public class UserController extends BaseController {
 		return "user/user_info";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/updateUserInfo.do")
-	public String update(Admin admin , HttpSession session , Model model) {
+	public  Map<String, Object> update(Admin admin , HttpSession session , Model model) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		adminDao.update(admin);
 		//更新Session
 		session.removeAttribute("admin");
 		session.setAttribute("admin", admin);
-		return "redirect:../login/toIndex.do";
+		
+		result.put("success", true);
+		result.put("message", "保存成功");
+		return result;
 	}
 	
 	@RequestMapping("/toUserPassword.do")

@@ -45,6 +45,7 @@ public class CostController implements Serializable{
 		//查询某一页的数据
 		List<Cost> list =  dao.findBySort(page);
 		model.addAttribute("costs", list);
+		
 		//计算总行数
 		page.setRows(dao.findRows());
 		model.addAttribute("costPage", page);
