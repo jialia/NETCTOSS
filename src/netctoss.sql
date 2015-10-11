@@ -1,5 +1,6 @@
 grant debug connect session,debug any procedure to jsd1302;
 
+
 ----------------------- 表相关的所有语句DDL，DML，TCL
 --资费信息表
 --drop table COST;

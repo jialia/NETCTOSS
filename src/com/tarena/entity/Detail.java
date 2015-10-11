@@ -30,6 +30,8 @@ public class Detail implements Serializable {
 	
 	private double cost;			//费用
 	
+	private String cost_name;		//资费名称
+	
 	public Detail() {
 	}
 
@@ -105,13 +107,21 @@ public class Detail implements Serializable {
 		this.duration = duration;
 	}
 
+	public String getCost_name() {
+		return cost_name;
+	}
+
+	public void setCost_name(String cost_name) {
+		this.cost_name = cost_name;
+	}
+
 	@Override
 	public String toString() {
 		return "Detail [detail_id=" + detail_id + ", service_id=" + service_id
 				+ ", client_host=" + client_host + ", os_username="
 				+ os_username + ", pid=" + pid + ", login_time=" + login_time
 				+ ", logout_time=" + logout_time + ", duration=" + duration
-				+ ", cost=" + cost + "]";
+				+ ", cost=" + cost + ", cost_name=" + cost_name + "]";
 	}
 
 	@Override

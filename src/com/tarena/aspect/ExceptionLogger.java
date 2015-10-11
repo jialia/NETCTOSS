@@ -19,8 +19,8 @@ import com.tarena.entity.Admin;
  * 
  * @author Jsong
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 public class ExceptionLogger {
 	
 	@Resource

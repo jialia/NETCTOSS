@@ -26,6 +26,10 @@
                     monthObj.options[i] = opObj;
                 }
             }
+            function to_page(curr_page){
+            	document.getElementById("current_page").value = curr_page ;
+            	document.forms[0].submit();
+            }
         </script>
     </head>
     <body onload="initialYearAndMonth();">
@@ -42,21 +46,21 @@
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">
-            <form action="" method="">
+            <form action="findBill.do" method="post">
+            	<input type="hidden" name="currentPage" id="current_page" />
+
                 <!--查询-->
                 <div class="search_add">                        
-                    <div>身份证：<input type="text"  value="230101111111111111" class="text_search" /></div>
-                    <div>账务账号：<input type="text" value="admin1" class="width100 text_search" /></div>                            
-                    <div>姓名：<input type="text" value="张三" class="width70 text_search" /></div>
+                    <div>身份证：<input name="idcard_no" type="text"  value="${billPage.idcard_no}" class="text_search" /></div>
+                    <div>账务账号：<input name="login_name" type="text" value="${billPage.login_name}" class="width100 text_search" /></div>                            
+                    <div>姓名：<input name="real_name" type="text" value="${billPage.real_name}" class="width70 text_search" /></div>
                     <div>
                         <select class="select_search" id="selYears">
-                        </select>
-                        年
+                        </select> 年
                         <select class="select_search" id="selMonths">
-                        </select>
-                        月
+                        </select> 月
                     </div>
-                    <div><input type="button" value="搜索" class="btn_search" /></div>
+                    <div><input type="button" value="搜索" class="btn_search" onclick="to_page(1)" /></div>
                 </div>  
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
@@ -91,7 +95,7 @@
                         	<c:when test="${b.pay_state == 0}"><td>未支付</td></c:when>
                         	<c:otherwise><td>已支付</td></c:otherwise>
                         </c:choose>
-                        <td><a href="bill_item.html" title="账单明细">明细</a></td>
+                        <td><a href="findItem.do?bill_id=${b.bill_id}" title="账单明细">明细</a></td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -104,16 +108,35 @@
                 </div>                    
                 <!--分页-->
                 <div id="pages">
-                    <a href="#">首页</a>
-        	        <a href="#">上一页</a>
-                    <a href="#" class="current_page">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">下一页</a>
-                    <a href="#">末页</a>
-                </div>                    
+                    <a href="javascript:to_page(1)">首页</a>
+                    <c:choose>
+                    	<c:when test="${billPage.currentPage == 1}">
+		        	        <a href="javascript:;">上一页</a>
+                    	</c:when>
+                    	<c:otherwise>
+		        	        <a href="javascript:to_page(${billPage.currentPage-1})">上一页</a>
+                    	</c:otherwise>
+                    </c:choose>
+        	        <c:forEach begin="1" end="${billPage.totalPage}" var="p">
+        	        	<c:choose>
+        	        		<c:when test="${billPage.currentPage == p}">
+			                    <a href="javascript:to_page(${billPage.currentPage})" class="current_page">${p}</a>
+        	        		</c:when>
+        	        		<c:otherwise>
+			                    <a href="javascript:to_page(${p})" >${p}</a>
+        	        		</c:otherwise>
+        	        	</c:choose>
+        	        </c:forEach>
+                    <c:choose>
+                    	<c:when test="${billPage.totalPage == billPage.currentPage}">
+		                    <a href="javascript:;">下一页</a>
+                    	</c:when>
+                    	<c:otherwise>
+		                    <a href="javascript:to_page(${billPage.currentPage+1})">下一页</a>
+                    	</c:otherwise>
+                    </c:choose>
+                    <a href="javascript:to_page(${billPage.totalPage})">末页</a>
+                </div>
             </form>
         </div>
         <!--主要区域结束-->

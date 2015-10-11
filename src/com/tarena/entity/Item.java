@@ -17,6 +17,14 @@ public class Item implements Serializable {
 	
 	private Integer service_id;	//业务id
 	
+	private Integer account_id;	//账务id
+	
+	private String os_username;	//OS账号
+	
+	private String unix_host;	//服务器IP
+	
+	private String cost_name;	//资费名称
+	
 	private double cost;		//费用
 	
 	public Item() {
@@ -54,10 +62,44 @@ public class Item implements Serializable {
 		this.cost = cost;
 	}
 
+	public Integer getAccount_id() {
+		return account_id;
+	}
+
+	public void setAccount_id(Integer account_id) {
+		this.account_id = account_id;
+	}
+
+	public String getOs_username() {
+		return os_username;
+	}
+
+	public void setOs_username(String os_username) {
+		this.os_username = os_username;
+	}
+
+	public String getUnix_host() {
+		return unix_host;
+	}
+
+	public void setUnix_host(String unix_host) {
+		this.unix_host = unix_host;
+	}
+
+	public String getCost_name() {
+		return cost_name;
+	}
+
+	public void setCost_name(String cost_name) {
+		this.cost_name = cost_name;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [item_id=" + item_id + ", bill_id=" + bill_id
-				+ ", service_id=" + service_id + ", cost=" + cost + "]";
+				+ ", service_id=" + service_id + ", account_id=" + account_id
+				+ ", os_username=" + os_username + ", unix_host=" + unix_host
+				+ ", cost_name=" + cost_name + ", cost=" + cost + "]";
 	}
 
 	@Override
